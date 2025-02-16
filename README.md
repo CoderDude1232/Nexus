@@ -1,14 +1,13 @@
 # 🚀 Nexus Executor  
 
-[![Version](https://img.shields.io/badge/Version-1.Beta_1.0-blue)]()  
-[![Status](https://img.shields.io/badge/Status-Working-green)]()  
-[![Platform](https://img.shields.io/badge/Platform-Windows-blue)]()  
-[![Discord](https://img.shields.io/discord/123456789?color=5865F2&label=Join%20Discord&logo=discord&logoColor=white)](https://discord.gg/YOURSERVER)  
+[![Version](https://img.shields.io/badge/Version-Beta_1.1-blue)]()  
+[![Status](https://img.shields.io/badge/Executor-Status-orange)]()  
+[![Platform](https://img.shields.io/badge/Platform-Windows_10+-blue)]()  
 
 ---
 
 ## 🎯 What is **Nexus**?
-💎 **Nexus** is the **best free executor** available right now!  
+### 💎 **Nexus** is the **best free executor** available right now!  
 ✅ **No Key System** – Instant access with no wait.  
 🆓 **Completely Free** – Powered by community donations.  
 💖 **We appreciate any support** to keep Nexus running!  
