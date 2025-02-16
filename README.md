@@ -1,8 +1,9 @@
 # 🚀 Nexus Executor
 
 [![Status: Online](https://img.shields.io/badge/Status-Some_Issues-orange)]()  
-[![Status: Beta](https://img.shields.io/badge/Software-Beta_1.1-green)]()  
-[![Status: Update Available](https://img.shields.io/badge/Update-Available-red)]()  
+[![Status: Beta](https://img.shields.io/badge/Latest-1.0-green)]()
+[![Status: Beta](https://img.shields.io/badge/Latest_Beta-1.1-green)]()  
+[![Status: Update Available](https://img.shields.io/badge/Updates-None-green)]()  
 [![Status: Issues Found](https://img.shields.io/badge/Known_Issues-Yes-orange)]()  
 
 
