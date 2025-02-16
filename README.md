@@ -1,5 +1,11 @@
 # 🚀 Nexus Executor
 
+[![Status: Online](https://img.shields.io/badge/Status-Some_Issues-orange)]()  
+[![Status: Beta](https://img.shields.io/badge/Software-Beta_1.1-green)]()  
+[![Status: Update Available](https://img.shields.io/badge/Update-Available-red)]()  
+[![Status: Issues Found](https://img.shields.io/badge/Known_Issues-Yes-orange)]()  
+
+
 ---
 
 ## 🎯 What is **Nexus**?
