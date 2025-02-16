@@ -1,43 +1,47 @@
 # 🚀 Nexus - The Ultimate Free Executor  
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
 [![Version](https://img.shields.io/badge/Version-5.2-blue)]()  
 [![Status](https://img.shields.io/badge/Status-Active-green)]()  
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue)]()  
 [![Discord](https://img.shields.io/discord/123456789?color=5865F2&label=Join%20Discord&logo=discord&logoColor=white)](https://discord.gg/YOURSERVER)  
 
 ---
 
 ## 🎯 What is **Nexus**?
-💎 **Nexus** is the **best new and free executor** available right now!  
-✅ **No Key System!** - Just launch and start using it.  
-🆓 **Completely Free** - We rely on **donations** to keep Nexus running!  
-💖 Any **support or donations** are greatly appreciated!  
+💎 **Nexus** is the **best free executor** available right now!  
+✅ **No Key System** – Instant access with no wait.  
+🆓 **Completely Free** – Powered by community donations.  
+💖 **We appreciate any support** to keep Nexus running!  
 
 ---
 
-## 📸 Screenshots  
-🌟 *See Nexus in action!*  
-![Nexus Screenshot](https://your-image-link.com/nexus.png)  
+## 📸 Screenshots
+![Nexus Launcher](https://i.imgur.com/oQo80Ga.png)
+![Nexus Editor](https://i.imgur.com/rP8aR1T.png)
+![Nexus Settings](https://i.imgur.com/yzEzKc3.png))
 
 ---
 
 ## 🚀 Features
-🔹 **Fast & Secure Execution**  
-🔹 **Supports Latest Updates**  
-🔹 **Modern & Sleek UI**  
-🔹 **Multi-Script Support**  
-🔹 **No Annoying Ads or Bloatware**  
+✔️ **Instant Execution**  
+✔️ **Updates Regularly**  
+✔️ **New & Clean UI**  
+✔️ **No Ads Or Linkvertise**  
+✔️ **80% UNC**  
 
 ---
 
 ## 💾 Installation  
-**1️⃣ Download Nexus** from [Official Releases](https://github.com/yourrepo/Nexus/releases).  
-**2️⃣ Extract the Files** anywhere on your PC.  
-**3️⃣ Run `Nexus.exe`** and start using it!  
+1️⃣ **Download Nexus** from [Official Releases](https://github.com/CoderDude1232/Nexus/releases).  
+2️⃣ **Extract Files** to your preferred folder.  
+3️⃣ **Run `Nexus.exe`** and wait for launch!
 
 ---
 
-## 🔥 How to Use
-```csharp
-using Nexus;
-Executor.Execute("print('Hello, World!')");
+## ⛔ Occurable Errors  
+1️⃣ **Roblox** *sometimes* may crash when you inject. (Roblox crashed! Try preforming a windows clean boot.)
+✅ Relaunch both the executor and Roblox.
+2️⃣ **Error** when you launch the app. (Could not find a part of the path 'C:\Users\ethan\OneDrive\Desktop\Nexus Build\scripts'.)
+✅ Add a folder named *"scripts"* into the executor.
+3️⃣ Different **error** when you launch the app. (Error loading editor: Unable to load DLL 'WebView2Loader.dll': The specified module could not be found. (Exception from HRESULT: 0x8007007E)
+✅ **Redownload** the executor from **GitHub**.
