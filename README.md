@@ -1,7 +1,7 @@
-# 🚀 Nexus - The Ultimate Free Executor  
+# 🚀 Nexus Executor  
 
-[![Version](https://img.shields.io/badge/Version-5.2-blue)]()  
-[![Status](https://img.shields.io/badge/Status-Active-green)]()  
+[![Version](https://img.shields.io/badge/Version-1.Beta_1.0-blue)]()  
+[![Status](https://img.shields.io/badge/Status-Working-green)]()  
 [![Platform](https://img.shields.io/badge/Platform-Windows-blue)]()  
 [![Discord](https://img.shields.io/discord/123456789?color=5865F2&label=Join%20Discord&logo=discord&logoColor=white)](https://discord.gg/YOURSERVER)  
 
