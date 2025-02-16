@@ -36,9 +36,7 @@ Nexus offers **one of the best execution environments**, ensuring smooth script 
 
 1️⃣ **Download Nexus** from [Official Releases](https://github.com/CoderDude1232/Nexus/releases).\
 2️⃣ **Extract Files** to your preferred folder.\
-3️⃣ \*\*Run \*\***`Nexus.exe`** and wait for launch!
-
-📌 *Ensure you have all dependencies installed to avoid startup issues.*
+3️⃣ Run **`Nexus.exe`** and wait for launch!
 
 ---
 
@@ -48,37 +46,36 @@ Here are some **known issues** and their **solutions**:
 
 ### 1️⃣ **Roblox Crash on Injection**
 
-📌 *Issue:* Roblox may **crash after injecting Nexus**.\
-✅ **Fix:** Try performing a **Windows Clean Boot** and relaunch both Nexus & Roblox.
+📌 ***Issue:*** Roblox may **crash after injecting Nexus**.\
+✅ **Fix:** Try **restarting** your **PC** and then open both Nexus & Roblox.
 
 ### 2️⃣ **Missing Scripts Folder**
 
-📌 *Issue:* App shows error:
+📌 *Issue:* Error upon launch:
 
 ```
-Could not find a part of the path 'C:\Users\ethan\OneDrive\Desktop\Nexus Build\scripts'.
+Could not find a part of the path 'C:\path\to\executer-folder\scripts'.
 ```
 
-✅ **Fix:** Create a folder named **"scripts"** inside the Nexus directory.
+✅ **Fix:** Create a folder named **`scripts`** inside the **Nexus** directory.
 
-### 3️⃣ **Missing WebView2 DLL**
+### 3️⃣ **Missing Editor File**
 
-📌 *Issue:* App shows error:
+📌 *Issue:* Error upon launch
 
 ```
 Error loading editor: Unable to load DLL 'WebView2Loader.dll': The specified module could not be found.
 ```
 
-✅ **Fix:** **Redownload Nexus** from **GitHub** and ensure that WebView2 is installed.\
-🔗 Download WebView2: [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
+✅ **Fix:** **Redownload Nexus** from **GitHub** and ensure that you find both folders named **`Nexus.exe.WebView2`** and **`runtimes`**.
 
 ---
 
 ## 💖 Support Nexus
 
-Nexus is **free & community-powered**. If you’d like to support development:\
-☕ **[Buy us a Coffee](https://www.buymeacoffee.com/yourlink)**\
-🎁 **[Donate via PayPal](https://www.paypal.me/yourlink)**
+Nexus is **free & run on donations**. If you’d like to support development:\
+☕ **[Buy us a Coffee](https://github.com/CoderDude1232/Nexus/blob/main/DONATIONS.md)**\
+🎁 **[Donate via PayPal](https://github.com/CoderDude1232/Nexus/blob/main/DONATIONS.md)**
 
 Every contribution helps us **keep Nexus running smoothly!** 🚀
 
@@ -86,9 +83,7 @@ Every contribution helps us **keep Nexus running smoothly!** 🚀
 
 ## 🌍 Connect with Us
 
-📌 **Website**: [nexus-executor.com](https://nexus-executor.com)\
-📢 **Discord**: [Join Community](https://discord.gg/YOURSERVER)\
-💬 **GitHub Issues**: [Report Bugs](https://github.com/CoderDude1232/Nexus/issues)
+💬 **Executor/Github Issues**: [Report Bugs](https://github.com/CoderDude1232/Nexus/issues)
 
 ---
 
