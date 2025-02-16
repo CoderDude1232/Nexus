@@ -17,8 +17,6 @@
 
 ## 📸 Screenshots
 ![Nexus Launcher](https://i.imgur.com/oQo80Ga.png)
-![Nexus Editor](https://i.imgur.com/rP8aR1T.png)
-![Nexus Settings](https://i.imgur.com/yzEzKc3.png))
 
 ---
 
