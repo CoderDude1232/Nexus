@@ -1,6 +1,6 @@
 # 🚀 Nexus Executor
 
-[![Status: Online](https://img.shields.io/badge/Status-Working-green)]()  
+[![Status: Online](https://img.shields.io/badge/Status-V1.2_Not_Released-green)]()  
 [![Status: Beta](https://img.shields.io/badge/Latest-1.2-green)]()
 [![Status: Update Available](https://img.shields.io/badge/Updates-Up_To_Date-green)]()  
 [![Status: Issues Found](https://img.shields.io/badge/Issues-Minor-yellow)]()  
