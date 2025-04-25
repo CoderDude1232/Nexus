@@ -22,7 +22,7 @@
 
 ## 💻 Design
 
-⌨️ **Nexus** provides the best UI that **sticks out&** against all.
+⌨️ **Nexus** provides the best UI that **sticks out** against all.
 
 ---
 
