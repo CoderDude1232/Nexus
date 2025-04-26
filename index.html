@@ -167,7 +167,7 @@
 
   // === TRANSITION FUNCTIONS ===
   function showIntro() {
-    document.getElementById('authForm').classList.add('hidden');
+    document.getElementById('authForm').remove();
     document.getElementById('loadingScreen').classList.remove('hidden');
 
     setTimeout(() => {
