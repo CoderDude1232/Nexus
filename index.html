@@ -160,10 +160,19 @@
   }
 
   auth.onAuthStateChanged(user => {
-    if (user) {
-      showIntro();
-    }
-  });
+  if (user) {
+    // If logged in, remove auth form immediately (before anything renders)
+    const authEl = document.getElementById('authForm');
+    if (authEl) authEl.remove();
+    showIntro();
+  } else {
+    // If not logged in, show auth form
+    document.getElementById('authForm').classList.remove('hidden');
+    document.getElementById('loadingScreen').classList.add('hidden');
+    document.getElementById('mainContent').classList.add('hidden');
+  }
+});
+
 
   // === TRANSITION FUNCTIONS ===
   function showIntro() {
