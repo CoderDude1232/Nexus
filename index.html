@@ -1,208 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Nexus Key System</title>
-    <style>
-        body {
-            background-color: #0d0d0d;
-            color: #00ffea;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <title>Nexus Key System</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: black;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        h1, p {
-            background: linear-gradient(90deg, #00ffea, #00bfff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px #00bfff, 0 0 20px #00ffea;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
+    #loadingScreen, #mainContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-        p {
-            font-size: 1.3em;
-        }
+    h2, p, h1, #accessGranted {
+      background: linear-gradient(90deg, #00ffea, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px #00bfff, 0 0 20px #00ffea;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
 
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #00bfff, 0 0 10px #00ffea;
-            }
-            to {
-                text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffea;
-            }
-        }
+    #loadingScreen h2 {
+      font-size: 4em;
+    }
 
-        /* LOADING SCREEN STYLES */
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0d0d0d;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
+    #loadingScreen p {
+      font-size: 1.4em;
+    }
 
-        #loadingScreen h2 {
-            font-size: 4em;
-            margin: 0;
-            background: linear-gradient(90deg, #00ffea, #00bfff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px #00ffea;
-            animation: glow 2s infinite alternate;
-        }
+    #accessGranted {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
 
-        #loadingDots {
-            margin-top: 20px;
-            font-size: 1.5em;
-            color: #00bfff;
-            animation: dots 1s infinite steps(4);
-        }
+    h1 {
+      font-size: 2em;
+      margin: 10px 0;
+    }
 
-        @keyframes dots {
-            0%   { content: ''; }
-            25%  { content: '.'; }
-            50%  { content: '..'; }
-            75%  { content: '...'; }
-        }
+    p {
+      font-size: 1.2em;
+    }
 
-        #mainContent {
-            display: none;
-        }
+    .show {
+      opacity: 1 !important;
+    }
 
-        .hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-    </style>
+    .hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+  </style>
 </head>
 <body>
-    <!-- LOADING SCREEN -->
-    <div id="loadingScreen">
-        <h2>NEXUS</h2>
-        <div id="loadingDots">Loading<span id="dots">...</span></div>
-    </div>
+  <canvas id="matrixCanvas"></canvas>
 
-    <!-- MAIN APP -->
-    <div id="mainContent">
-        <h1 id="key">Loading key...</h1>
-        <p id="timeLeft">Calculating time left...</p>
-    </div>
+  <div id="loadingScreen">
+    <h2>NEXUS</h2>
+    <p>Fetching active key...</p>
+  </div>
 
-    <script>
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+  <div id="mainContent" class="hide">
+    <div id="accessGranted">ACCESS GRANTED</div>
+    <h1 id="key">Loading key...</h1>
+    <p id="timeLeft">Calculating time left...</p>
+  </div>
+
+  <script>
+    // MATRIX RAIN BACKGROUND
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    const letters = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ff00";
+      ctx.font = fontSize + "px monospace";
+      drops.forEach((y, i) => {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        const x = i * fontSize;
+        ctx.fillText(text, x, y * fontSize);
+        drops[i] = y * fontSize > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+      });
+    }
+
+    setInterval(drawMatrix, 50);
+
+    // COOKIES AND KEY LOGIC
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    async function getIP() {
+      const res = await fetch('https://api.ipify.org?format=json');
+      const data = await res.json();
+      return data.ip;
+    }
+
+    function startCountdown(expireTimestamp) {
+      const expireDate = new Date(Number(expireTimestamp));
+      function update() {
+        const now = new Date();
+        let diff = expireDate - now;
+
+        if (diff <= 0) {
+          document.getElementById('timeLeft').innerText = "Key expired. Please refresh.";
+          clearInterval(timer);
+          return;
         }
 
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        async function getIP() {
-            const res = await fetch('https://api.ipify.org?format=json');
-            const data = await res.json();
-            return data.ip;
-        }
+        document.getElementById('timeLeft').innerText =
+          `This key is active for ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+      }
 
-        function startCountdown(expireTimestamp) {
-            const expireDate = new Date(Number(expireTimestamp));
-            function update() {
-                const now = new Date();
-                let diff = expireDate - now;
+      update();
+      const timer = setInterval(update, 1000);
+    }
 
-                if (diff <= 0) {
-                    document.getElementById('timeLeft').innerText = "Key expired. Please refresh.";
-                    clearInterval(timer);
-                    return;
-                }
+    async function fetchKeysAndPickRandom() {
+      try {
+        const response = await fetch('https://gist.githubusercontent.com/CoderDude1232/8289017019095e5dc6b622ebcd7f5aa8/raw/00bf4766c1a1944159ff07cd671c433aa363adf7/keys.txt');
+        const text = await response.text();
+        const keys = text.split(/\r?\n/).filter(key => key.trim() !== '');
 
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        if (keys.length > 0) {
+          const ip = await getIP();
+          const stored = getCookie('userKey');
 
-                document.getElementById('timeLeft').innerText =
-                    `This key is active for ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+          if (stored) {
+            const [storedIP, storedKey, storedExpire] = stored.split('|');
+            if (storedIP === ip && storedKey && storedExpire) {
+              showMainContent(storedKey, storedExpire);
+              return;
             }
+          }
 
-            update();
-            const timer = setInterval(update, 1000);
+          const randomKey = keys[Math.floor(Math.random() * keys.length)];
+          const expireDate = new Date();
+          expireDate.setTime(expireDate.getTime() + (2 * 24 * 60 * 60 * 1000));
+          setCookie('userKey', `${ip}|${randomKey}|${expireDate.getTime()}`, 2);
+          showMainContent(randomKey, expireDate.getTime());
+        } else {
+          showMainContent("No keys found.", null);
         }
+      } catch (error) {
+        showMainContent("Failed to load keys.", null);
+        console.error(error);
+      }
+    }
 
-        async function fetchKeysAndPickRandom() {
-            try {
-                const response = await fetch('https://gist.githubusercontent.com/CoderDude1232/8289017019095e5dc6b622ebcd7f5aa8/raw/00bf4766c1a1944159ff07cd671c433aa363adf7/keys.txt');
-                const text = await response.text();
-                const keys = text.split(/\r?\n/).filter(key => key.trim() !== '');
+    function showMainContent(key, expireTime) {
+      document.getElementById('key').innerText = key;
 
-                if (keys.length > 0) {
-                    const ip = await getIP();
-                    const stored = getCookie('userKey');
+      setTimeout(() => {
+        document.getElementById('loadingScreen').classList.add('hide');
+        document.getElementById('mainContent').classList.remove('hide');
+        document.getElementById('accessGranted').classList.add('show');
+      }, 5000); // 5 second delay
 
-                    if (stored) {
-                        const [storedIP, storedKey, storedExpire] = stored.split('|');
-                        if (storedIP === ip && storedKey && storedExpire) {
-                            showMainContent(storedKey, storedExpire);
-                            return;
-                        }
-                    }
+      if (expireTime) {
+        startCountdown(expireTime);
+      } else {
+        document.getElementById('timeLeft').innerText = "";
+      }
+    }
 
-                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                    const expireDate = new Date();
-                    expireDate.setTime(expireDate.getTime() + (2 * 24 * 60 * 60 * 1000)); // 2 days
-
-                    setCookie('userKey', `${ip}|${randomKey}|${expireDate.getTime()}`, 2);
-                    showMainContent(randomKey, expireDate.getTime());
-                } else {
-                    showMainContent("No keys found.", null);
-                }
-            } catch (error) {
-                showMainContent("Failed to load keys.", null);
-                console.error(error);
-            }
-        }
-
-        function showMainContent(key, expireTime) {
-            document.getElementById('key').innerText = key;
-
-            // Hide loading screen
-            document.getElementById('loadingScreen').classList.add('hide');
-
-            // Show main content after a short fade
-            setTimeout(() => {
-                document.getElementById('mainContent').style.display = 'block';
-            }, 1000);
-
-            if (expireTime) {
-                startCountdown(expireTime);
-            } else {
-                document.getElementById('timeLeft').innerText = "";
-            }
-        }
-
-        fetchKeysAndPickRandom();
-    </script>
+    fetchKeysAndPickRandom();
+  </script>
 </body>
 </html>
