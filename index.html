@@ -13,6 +13,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       color: #00ffea;
+      visibility: hidden; /* prevent flash before ready */
     }
 
     canvas {
@@ -69,6 +70,10 @@
       align-items: center;
       background-color: rgba(0, 0, 0, 0.85);
     }
+
+    body.ready {
+      visibility: visible;
+    }
   </style>
 
   <!-- Firebase -->
@@ -80,7 +85,7 @@
   <canvas id="matrixCanvas"></canvas>
 
   <!-- LOGIN / SIGNUP -->
-  <div id="authForm">
+  <div id="authForm" class="hidden">
     <h1>NEXUS LOGIN</h1>
     <input type="email" id="email" placeholder="Email"><br>
     <input type="password" id="password" placeholder="Password"><br>
@@ -103,7 +108,7 @@
   </div>
 
 <script>
-  // === MATRIX RAIN BACKGROUND ===
+  // ========== Matrix Code Rain ==========
   const canvas = document.getElementById("matrixCanvas");
   const ctx = canvas.getContext("2d");
   canvas.height = window.innerHeight;
@@ -127,7 +132,7 @@
   }
   setInterval(drawMatrix, 50);
 
-  // === FIREBASE CONFIG ===
+  // ========== Firebase Config ==========
   const firebaseConfig = {
     apiKey: "AIzaSyBPRpcRz56lZbwSKuuaezoJej3yS-jsyKg",
     authDomain: "nexus-46231.firebaseapp.com",
@@ -138,7 +143,9 @@
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
-  // === AUTH FUNCTIONS ===
+  window.onload = () => document.body.classList.add('ready');
+
+  // ========== Auth Functions ==========
   function login() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -160,23 +167,18 @@
   }
 
   auth.onAuthStateChanged(user => {
-  if (user) {
-    // If logged in, remove auth form immediately (before anything renders)
-    const authEl = document.getElementById('authForm');
-    if (authEl) authEl.remove();
-    showIntro();
-  } else {
-    // If not logged in, show auth form
-    document.getElementById('authForm').classList.remove('hidden');
-    document.getElementById('loadingScreen').classList.add('hidden');
-    document.getElementById('mainContent').classList.add('hidden');
-  }
-});
+    if (user) {
+      const authEl = document.getElementById('authForm');
+      if (authEl) authEl.remove();
+      showIntro();
+    } else {
+      document.getElementById('authForm').classList.remove('hidden');
+      document.getElementById('loadingScreen').classList.add('hidden');
+      document.getElementById('mainContent').classList.add('hidden');
+    }
+  });
 
-
-  // === TRANSITION FUNCTIONS ===
   function showIntro() {
-    document.getElementById('authForm').remove();
     document.getElementById('loadingScreen').classList.remove('hidden');
 
     setTimeout(() => {
@@ -184,10 +186,10 @@
       document.getElementById('mainContent').classList.remove('hidden');
       document.getElementById('accessGranted').style.opacity = 1;
       fetchKeysAndPickRandom();
-    }, 5000); // 5 seconds intro
+    }, 5000); // 5s intro
   }
 
-  // === KEY & COUNTDOWN FUNCTIONS ===
+  // ========== Key and Countdown ==========
   function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
