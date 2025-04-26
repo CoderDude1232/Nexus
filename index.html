@@ -41,7 +41,7 @@
     <script>
         async function fetchKeysAndPickRandom() {
             try {
-                const response = await fetch('https://pastebin.com/raw/5sLSSbBf');
+                const response = await fetch('https://gist.githubusercontent.com/CoderDude1232/8289017019095e5dc6b622ebcd7f5aa8/raw/00bf4766c1a1944159ff07cd671c433aa363adf7/keys.txt');
                 const text = await response.text();
                 const keys = text.split(/\r?\n/).filter(key => key.trim() !== '');
 
