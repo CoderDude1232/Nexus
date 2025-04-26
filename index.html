@@ -15,6 +15,7 @@
             height: 100vh;
             margin: 0;
             text-align: center;
+            overflow: hidden;
         }
 
         h1, p {
@@ -42,11 +43,69 @@
                 text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffea;
             }
         }
+
+        /* LOADING SCREEN STYLES */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0d0d0d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #loadingScreen h2 {
+            font-size: 4em;
+            margin: 0;
+            background: linear-gradient(90deg, #00ffea, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px #00ffea;
+            animation: glow 2s infinite alternate;
+        }
+
+        #loadingDots {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #00bfff;
+            animation: dots 1s infinite steps(4);
+        }
+
+        @keyframes dots {
+            0%   { content: ''; }
+            25%  { content: '.'; }
+            50%  { content: '..'; }
+            75%  { content: '...'; }
+        }
+
+        #mainContent {
+            display: none;
+        }
+
+        .hide {
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
-    <h1 id="key">Loading...</h1>
-    <p id="timeLeft">Calculating time left...</p>
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen">
+        <h2>NEXUS</h2>
+        <div id="loadingDots">Loading<span id="dots">...</span></div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="mainContent">
+        <h1 id="key">Loading key...</h1>
+        <p id="timeLeft">Calculating time left...</p>
+    </div>
 
     <script>
         function setCookie(name, value, days) {
@@ -105,8 +164,7 @@
                     if (stored) {
                         const [storedIP, storedKey, storedExpire] = stored.split('|');
                         if (storedIP === ip && storedKey && storedExpire) {
-                            document.getElementById('key').innerText = storedKey;
-                            startCountdown(storedExpire);
+                            showMainContent(storedKey, storedExpire);
                             return;
                         }
                     }
@@ -116,15 +174,31 @@
                     expireDate.setTime(expireDate.getTime() + (2 * 24 * 60 * 60 * 1000)); // 2 days
 
                     setCookie('userKey', `${ip}|${randomKey}|${expireDate.getTime()}`, 2);
-                    document.getElementById('key').innerText = randomKey;
-                    startCountdown(expireDate.getTime());
+                    showMainContent(randomKey, expireDate.getTime());
                 } else {
-                    document.getElementById('key').innerText = 'No keys found.';
+                    showMainContent("No keys found.", null);
                 }
             } catch (error) {
-                document.getElementById('key').innerText = 'Failed to load keys.';
-                document.getElementById('timeLeft').innerText = '';
+                showMainContent("Failed to load keys.", null);
                 console.error(error);
+            }
+        }
+
+        function showMainContent(key, expireTime) {
+            document.getElementById('key').innerText = key;
+
+            // Hide loading screen
+            document.getElementById('loadingScreen').classList.add('hide');
+
+            // Show main content after a short fade
+            setTimeout(() => {
+                document.getElementById('mainContent').style.display = 'block';
+            }, 1000);
+
+            if (expireTime) {
+                startCountdown(expireTime);
+            } else {
+                document.getElementById('timeLeft').innerText = "";
             }
         }
 
