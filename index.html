@@ -17,19 +17,21 @@
             text-align: center;
         }
 
-        h1 {
-            font-size: 2.5em;
+        h1, p {
             background: linear-gradient(90deg, #00ffea, #00bfff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px #00bfff, 0 0 20px #00ffea;
             animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        h1 {
+            font-size: 2.5em;
             margin-bottom: 20px;
         }
 
         p {
-            font-size: 1.2em;
-            color: #00bfff;
+            font-size: 1.3em;
         }
 
         @keyframes glow {
@@ -65,7 +67,8 @@
             return data.ip;
         }
 
-        function startCountdown(expireDate) {
+        function startCountdown(expireTimestamp) {
+            const expireDate = new Date(Number(expireTimestamp));
             function update() {
                 const now = new Date();
                 let diff = expireDate - now;
@@ -81,11 +84,12 @@
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-                document.getElementById('timeLeft').innerText = `This key is active for ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+                document.getElementById('timeLeft').innerText =
+                    `This key is active for ${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
             }
 
-            update(); // Call immediately
-            const timer = setInterval(update, 1000); // Then every second
+            update();
+            const timer = setInterval(update, 1000);
         }
 
         async function fetchKeysAndPickRandom() {
@@ -100,26 +104,26 @@
 
                     if (stored) {
                         const [storedIP, storedKey, storedExpire] = stored.split('|');
-                        if (storedIP === ip) {
+                        if (storedIP === ip && storedKey && storedExpire) {
                             document.getElementById('key').innerText = storedKey;
-                            startCountdown(new Date(parseInt(storedExpire)));
+                            startCountdown(storedExpire);
                             return;
                         }
                     }
 
-                    // No stored key or IP mismatch
                     const randomKey = keys[Math.floor(Math.random() * keys.length)];
                     const expireDate = new Date();
                     expireDate.setTime(expireDate.getTime() + (2 * 24 * 60 * 60 * 1000)); // 2 days
 
-                    setCookie('userKey', `${ip}|${randomKey}|${expireDate.getTime()}`, 2); // Save IP, key, expiry
+                    setCookie('userKey', `${ip}|${randomKey}|${expireDate.getTime()}`, 2);
                     document.getElementById('key').innerText = randomKey;
-                    startCountdown(expireDate);
+                    startCountdown(expireDate.getTime());
                 } else {
                     document.getElementById('key').innerText = 'No keys found.';
                 }
             } catch (error) {
                 document.getElementById('key').innerText = 'Failed to load keys.';
+                document.getElementById('timeLeft').innerText = '';
                 console.error(error);
             }
         }
