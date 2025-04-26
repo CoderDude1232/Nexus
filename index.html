@@ -2,7 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Random Key</title>
+    <title>Nexus Key System</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ffea;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00ffea, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px #00bfff, 0 0 20px #00ffea;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #00bfff, 0 0 10px #00ffea;
+            }
+            to {
+                text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffea;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1 id="key">Loading...</h1>
@@ -10,7 +41,7 @@
     <script>
         async function fetchKeysAndPickRandom() {
             try {
-                const response = await fetch('https://example.com/keys.txt');
+                const response = await fetch('https://pastebin.com/raw/5sLSSbBf');
                 const text = await response.text();
                 const keys = text.split(/\r?\n/).filter(key => key.trim() !== '');
 
