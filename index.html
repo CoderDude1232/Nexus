@@ -46,18 +46,33 @@
       to { text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffea; }
     }
 
-    #loadingScreen, #mainContent {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(0, 0, 0, 0.85);
-      opacity: 1;
-      transition: opacity 1.5s ease;
-    }
+    #loadingScreen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* No grey on intro */
+  opacity: 1;
+  transition: opacity 1.5s ease;
+}
+
+#mainContent {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.85); /* Darken only after intro */
+  opacity: 1;
+  transition: opacity 1.5s ease;
+}
+
+
   </style>
 </head>
 <body>
