@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nexus Adwall Portal</title>
+  <title>Nexus Access Portal</title>
   <style>
     html, body {
       margin: 0;
@@ -34,6 +34,7 @@
 
     h1 { font-size: 3em; margin-bottom: 20px; }
     h2 { font-size: 2em; margin: 10px; opacity: 0; transition: opacity 2s ease; }
+    p { font-size: 1.2em; }
     #accessGranted {
       font-size: 2em;
     }
@@ -63,7 +64,7 @@
 
 <!-- INTRO SCREEN -->
 <div id="loadingScreen">
-  <h1>NEXUS</h1>
+  <h1 id="nexusText">NEXUS</h1>
   <p id="fetchingText">Fetching active key...</p>
 </div>
 
@@ -101,11 +102,10 @@
 
   // ===== Main Flow =====
   setTimeout(() => {
-    // Fade out loading screen
+    // Fade out entire loading screen
     document.getElementById('loadingScreen').style.opacity = 0;
 
     setTimeout(() => {
-      // After fade out, hide completely
       document.getElementById('loadingScreen').classList.add('hidden');
 
       // Fade in main content
@@ -116,17 +116,17 @@
       // Show Access Granted instantly
       document.getElementById('accessGranted').style.opacity = 1;
 
-      // Delay showing key and timer slightly (make it more "unlock" feeling)
+      // Then delay key + time left separately
       setTimeout(() => {
         document.getElementById('key').style.opacity = 1;
         document.getElementById('timeLeft').style.opacity = 1;
         fetchKeysAndPickRandom();
       }, 1000);
 
-    }, 1500); // Wait for fade out to finish
-  }, 5000); // 5 second intro
+    }, 1500); // after fade out
+  }, 5000); // wait 5 seconds at intro
 
-  // ===== Key and Countdown =====
+  // ===== Key + Countdown Stuff =====
   function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
