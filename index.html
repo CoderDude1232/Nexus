@@ -33,11 +33,13 @@
     }
 
     h1 { font-size: 3em; margin-bottom: 20px; }
-    h2 { font-size: 2em; margin: 10px; opacity: 0; transition: opacity 2s ease; }
-    p { font-size: 1.2em; }
-    #accessGranted {
+    h2, #key, #timeLeft, #accessGranted {
       font-size: 2em;
+      opacity: 0;
+      transition: opacity 2s ease;
+      margin: 10px;
     }
+    p { font-size: 1.2em; }
 
     @keyframes glow {
       from { text-shadow: 0 0 5px #00bfff, 0 0 10px #00ffea; }
@@ -64,7 +66,7 @@
 
 <!-- INTRO SCREEN -->
 <div id="loadingScreen">
-  <h1 id="nexusText">NEXUS</h1>
+  <h1>NEXUS</h1>
   <p id="fetchingText">Fetching active key...</p>
 </div>
 
@@ -76,7 +78,7 @@
 </div>
 
 <script>
-  // ===== Matrix Rain =====
+  // ===== Matrix Rain Background =====
   const canvas = document.getElementById("matrixCanvas");
   const ctx = canvas.getContext("2d");
   canvas.height = window.innerHeight;
@@ -100,23 +102,21 @@
   }
   setInterval(drawMatrix, 50);
 
-  // ===== Main Flow =====
+  // ===== Intro Logic =====
   setTimeout(() => {
-    // Fade out entire loading screen
     document.getElementById('loadingScreen').style.opacity = 0;
 
     setTimeout(() => {
       document.getElementById('loadingScreen').classList.add('hidden');
-
-      // Fade in main content
+      
       const mainContent = document.getElementById('mainContent');
       mainContent.classList.remove('hidden');
       mainContent.style.opacity = 1;
 
-      // Show Access Granted instantly
+      // Fade in ACCESS GRANTED
       document.getElementById('accessGranted').style.opacity = 1;
 
-      // Then delay key + time left separately
+      // Fade in KEY and TIME LEFT after 1 second
       setTimeout(() => {
         document.getElementById('key').style.opacity = 1;
         document.getElementById('timeLeft').style.opacity = 1;
@@ -124,9 +124,9 @@
       }, 1000);
 
     }, 1500); // after fade out
-  }, 5000); // wait 5 seconds at intro
+  }, 5000); // wait 5 seconds on intro
 
-  // ===== Key + Countdown Stuff =====
+  // ===== Key and Countdown Functions =====
   function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
