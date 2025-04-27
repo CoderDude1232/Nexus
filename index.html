@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nexus Access Portal</title>
+  <title>Nexus Key Portal</title>
   <style>
     html, body {
       margin: 0;
@@ -13,7 +13,6 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       color: #00ffea;
-      visibility: hidden; /* prevent flash before ready */
     }
 
     canvas {
@@ -21,20 +20,6 @@
       top: 0;
       left: 0;
       z-index: -1;
-    }
-
-    input, button {
-      margin: 8px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-
-    button {
-      background-color: #00bfff;
-      color: white;
-      cursor: pointer;
     }
 
     .hidden { display: none; }
@@ -60,7 +45,7 @@
       to { text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffea; }
     }
 
-    #loadingScreen, #authForm, #mainContent {
+    #loadingScreen, #mainContent {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -70,45 +55,27 @@
       align-items: center;
       background-color: rgba(0, 0, 0, 0.85);
     }
-
-    body.ready {
-      visibility: visible;
-    }
   </style>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 </head>
 <body>
 
-  <canvas id="matrixCanvas"></canvas>
+<canvas id="matrixCanvas"></canvas>
 
-  <!-- LOGIN / SIGNUP -->
-  <div id="authForm" class="hidden">
-    <h1>NEXUS LOGIN</h1>
-    <input type="email" id="email" placeholder="Email"><br>
-    <input type="password" id="password" placeholder="Password"><br>
-    <button onclick="login()">Login</button>
-    <button onclick="signup()">Sign Up</button>
-  </div>
+<!-- INTRO -->
+<div id="loadingScreen">
+  <h1>NEXUS</h1>
+  <p>Fetching active key...</p>
+</div>
 
-  <!-- INTRO / FETCHING KEY -->
-  <div id="loadingScreen" class="hidden">
-    <h1>NEXUS</h1>
-    <p>Fetching active key...</p>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div id="mainContent" class="hidden">
-    <h2 id="accessGranted">ACCESS GRANTED</h2>
-    <h2 id="key">Loading Key...</h2>
-    <p id="timeLeft">Calculating time left...</p>
-    <button onclick="logout()">Logout</button>
-  </div>
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="hidden">
+  <h2 id="accessGranted">ACCESS GRANTED</h2>
+  <h2 id="key">Loading Key...</h2>
+  <p id="timeLeft">Calculating time left...</p>
+</div>
 
 <script>
-  // ========== Matrix Code Rain ==========
+  // ===== Matrix Rain =====
   const canvas = document.getElementById("matrixCanvas");
   const ctx = canvas.getContext("2d");
   canvas.height = window.innerHeight;
@@ -132,64 +99,15 @@
   }
   setInterval(drawMatrix, 50);
 
-  // ========== Firebase Config ==========
-  const firebaseConfig = {
-    apiKey: "AIzaSyBPRpcRz56lZbwSKuuaezoJej3yS-jsyKg",
-    authDomain: "nexus-46231.firebaseapp.com",
-    projectId: "nexus-46231",
-    appId: "1:1041653783014:web:1566c48a2520cec5d6de27"
-  };
+  // ===== Main Flow =====
+  setTimeout(() => {
+    document.getElementById('loadingScreen').classList.add('hidden');
+    document.getElementById('mainContent').classList.remove('hidden');
+    document.getElementById('accessGranted').style.opacity = 1;
+    fetchKeysAndPickRandom();
+  }, 5000); // 5 second intro
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  window.onload = () => document.body.classList.add('ready');
-
-  // ========== Auth Functions ==========
-  function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => showIntro())
-      .catch(error => alert("Login failed: " + error.message));
-  }
-
-  function signup() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(() => alert("Account created! Now login."))
-      .catch(error => alert("Signup failed: " + error.message));
-  }
-
-  function logout() {
-    auth.signOut().then(() => location.reload());
-  }
-
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      const authEl = document.getElementById('authForm');
-      if (authEl) authEl.remove();
-      showIntro();
-    } else {
-      document.getElementById('authForm').classList.remove('hidden');
-      document.getElementById('loadingScreen').classList.add('hidden');
-      document.getElementById('mainContent').classList.add('hidden');
-    }
-  });
-
-  function showIntro() {
-    document.getElementById('loadingScreen').classList.remove('hidden');
-
-    setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-      document.getElementById('mainContent').classList.remove('hidden');
-      document.getElementById('accessGranted').style.opacity = 1;
-      fetchKeysAndPickRandom();
-    }, 5000); // 5s intro
-  }
-
-  // ========== Key and Countdown ==========
+  // ===== Key and Countdown =====
   function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
