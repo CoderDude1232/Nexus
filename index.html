@@ -292,10 +292,8 @@
   <h2>Download the latest version of Nexus</h2>
 
   <div class="download-card">
-    <!-- big icon -->
     <svg data-lucide="download-cloud"></svg>
 
-    <!-- buttons row -->
     <div class="btn-group">
       <a
         href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip"
@@ -305,16 +303,21 @@
         <svg data-lucide="download-cloud"></svg> Download
       </a>
 
-      <!-- Get Key button (hidden once you have a key) -->
-      <button id="get-key" class="btn btn-secondary small">
+      <!-- now styled like the Download button -->
+      <button id="get-key" class="btn btn-primary small">
         <svg data-lucide="key"></svg> Get Key
       </button>
     </div>
+  </div>
 
-    <!-- once you have a key, this text appears -->
-    <div id="key-info" style="margin-top:0.5rem; display:none; color:var(--clr-text-light);">
-      <!-- filled in by JS -->
-    </div>
+  <!-- moved outside the download-card -->
+  <div
+    id="key-info"
+    style="margin-top:0.75rem; text-align:center; display:none; color:var(--clr-text-light);"
+  >
+    <span>Your key: </span>
+    <span id="key-value"></span>
+    <span id="key-ttl"></span>
   </div>
 </section>
 
@@ -327,40 +330,69 @@
   </main>
 
   <script>
-  // helper to read a cookie by name
+  // cookie helpers
   function getCookie(name) {
-    return document.cookie
+    const m = document.cookie
       .split(';')
       .map(c => c.trim().split('='))
-      .find(pair => pair[0] === name)
-      ?.[1]
-      ? decodeURIComponent(document.cookie
-          .split(';')
-          .map(c => c.trim().split('='))
-          .find(pair => pair[0] === name)[1])
-      : null;
+      .find(([k]) => k === name);
+    return m ? decodeURIComponent(m[1]) : null;
   }
-
-  // helper to set a cookie that expires in `days`
   function setCookie(name, value, days) {
     const d = new Date();
-    d.setTime(d.getTime() + days * 24*60*60*1000);
-    document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/`;
+    d.setTime(d.getTime() + days*24*60*60*1000);
+    document.cookie = name + '=' + encodeURIComponent(value)
+      + ';expires=' + d.toUTCString() + ';path=/';
   }
-
-  // remove a cookie immediately
   function eraseCookie(name) {
-    document.cookie = name+'=; Max-Age=0; path=/';
+    document.cookie = name + '=; Max-Age=0; path=/';
   }
 
-  // display logic: if key exists & unexpired, show it; else show button
+  // build a “masked” placeholder from the real key:
+  // e.g. real = "ABCDE-FGHIJ-KLMNO-PQRST-UVWXY"
+  // placeholder = "ABCD#-#####-#####-#####-#####"
+  function makePlaceholder(key) {
+    const parts = key.split('-');
+    const out = parts.map((p,i) => {
+      if (i === 0) {
+        return p.slice(0,4) + '#';
+      } else {
+        return '#'.repeat(p.length);
+      }
+    });
+    return out.join('-');
+  }
+
+  // animate reveal from placeholder → actual
+  function animateKeyReveal(el, actual) {
+    const placeholder = makePlaceholder(actual).split('');
+    const chars = placeholder.slice();
+    const indices = placeholder
+      .map((ch,i) => ch === '#' ? i : null)
+      .filter(i => i !== null);
+
+    let idx = 0;
+    const interval = setInterval(() => {
+      if (idx >= indices.length) {
+        clearInterval(interval);
+        return;
+      }
+      const pos = indices[idx++];
+      chars[pos] = actual[pos];
+      el.textContent = chars.join('');
+    }, 50);
+  }
+
+  // show/hide key UI
   function updateKeyDisplay() {
     const key = getCookie('nexus_key');
     const exp = getCookie('nexus_key_exp');
     const btn = document.getElementById('get-key');
     const info = document.getElementById('key-info');
+    const val = document.getElementById('key-value');
+    const ttl = document.getElementById('key-ttl');
 
-    // no key → show button
+    // if no key or expired → reset
     if (!key || !exp || Date.now() > +exp) {
       eraseCookie('nexus_key');
       eraseCookie('nexus_key_exp');
@@ -369,58 +401,52 @@
       return;
     }
 
-    // valid key → hide button, show info
-    btn.style.display = 'none';
+    // we have a valid key
+    btn.style.display  = 'none';
     info.style.display = 'block';
 
-    // compute TTL
-    let msLeft = +exp - Date.now();
-    const hours = Math.floor(msLeft / 36e5);
-    msLeft %= 36e5;
-    const minutes = Math.floor(msLeft / 6e4);
-    msLeft %= 6e4;
-    const seconds = Math.floor(msLeft / 1000);
+    // compute time-left once
+    let ms = +exp - Date.now();
+    const h = Math.floor(ms / 36e5); ms %= 36e5;
+    const m = Math.floor(ms / 6e4);  ms %= 6e4;
+    const s = Math.floor(ms / 1e3);
 
-    info.textContent =
-      `Your key: ${key} (${hours}h ${minutes}m ${seconds}s left)`;
+    ttl.textContent = ` (${h}h ${m}m ${s}s left)`;
+
+    // start with placeholder
+    val.textContent = makePlaceholder(key);
+
+    // animate to real
+    animateKeyReveal(val, key);
   }
 
-  // pick a random key from the raw Gist
+  // fetch + set cookie for 1 day
   async function fetchAndAssignKey() {
     try {
-      const resp = await fetch(
+      const r = await fetch(
         'https://gist.githubusercontent.com/CoderDude1232/6b5544352cf9b85faea91c89a1b9a052/raw/7d07241e225baa3f269d02801507fb7e5dfb4093/KeysForNexus.txt'
       );
-      const text = await resp.text();
-      const keys = text
-        .split('\n')
-        .map(l => l.trim())
-        .filter(l => l.length);
+      const txt = await r.text();
+      const keys = txt.split('\n').map(l => l.trim()).filter(l => l);
+      const chosen = keys[Math.floor(Math.random()*keys.length)];
 
-      // pick random
-      const key = keys[Math.floor(Math.random() * keys.length)];
-
-      // set cookie + expiration timestamp
-      setCookie('nexus_key', key, 1);
-      // store exact expiration ms since epoch
-      const expTime = Date.now() + 24*60*60*1000;
-      setCookie('nexus_key_exp', expTime, 1);
+      setCookie('nexus_key', chosen, 1);
+      setCookie('nexus_key_exp', Date.now() + 24*60*60*1000, 1);
 
       updateKeyDisplay();
-    } catch (err) {
-      console.error('Failed to fetch keys:', err);
+    } catch(err) {
+      console.error('Key fetch failed:', err);
     }
   }
 
-  // wire up the button
-  document.getElementById('get-key').addEventListener('click', fetchAndAssignKey);
-
-  // on load, initialize Lucide + key display
   document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
+    document.getElementById('get-key')
+      .addEventListener('click', fetchAndAssignKey);
     updateKeyDisplay();
   });
 </script>
+
 
 </body>
 </html>
