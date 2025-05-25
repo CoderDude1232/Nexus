@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nexus – Next Generation Script Execution</title>
 
-  <!-- Poppins + Lucide -->
+  <!-- Poppins + Lucide UMD -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.264.0/dist/umd/lucide.min.js"></script>
 
   <style>
     /*======== Variables & Reset ========*/
@@ -18,6 +18,8 @@
       --clr-text-light: #cbd5e1;
       --radius: 8px;
       --spacing: 1rem;
+      --btn-small-padding: 0.4rem 1rem;
+      --btn-small-font: 0.9rem;
     }
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
@@ -93,6 +95,7 @@
       display:inline-flex; align-items:center; gap:.5rem;
       padding:.75rem 1.5rem; border-radius:var(--radius);
       font-weight:500; text-decoration:none;
+      font-size:1rem;
       transition:transform .2s ease, background .2s ease;
     }
     .btn-primary {
@@ -105,6 +108,12 @@
       background:var(--clr-bg-alt); color:var(--clr-text);
     }
     .btn-secondary:hover { transform:translateY(-2px); }
+
+    /* smaller version */
+    .btn.small {
+      padding: var(--btn-small-padding);
+      font-size: var(--btn-small-font);
+    }
 
     /*======== Stats ========*/
     .stats-container {
@@ -170,22 +179,26 @@
       font-size:.95rem; line-height:1.4;
     }
 
-    /*======== Releases ========*/
+    /*======== Download Card ========*/
     #releases {
       text-align:center; padding:calc(var(--spacing)*4) var(--spacing);
     }
-    #releases ul {
-      list-style:none; margin-top:var(--spacing);
+    #releases h2 {
+      font-size:1.75rem; margin-bottom:1rem;
     }
-    #releases li {
-      margin:0.5rem 0;
+    .download-card {
+      display:inline-flex;
+      flex-direction:column;
+      align-items:center;
+      gap:1rem;
+      background:var(--clr-bg-alt);
+      padding:var(--spacing);
+      border-radius:var(--radius);
+      backdrop-filter:blur(10px);
     }
-    #releases a {
-      color:var(--clr-primary);
-      text-decoration:none;
-      font-weight:500;
+    .download-card svg {
+      width:48px; height:48px; stroke:var(--clr-primary);
     }
-    #releases a:hover { text-decoration:underline; }
 
     /*======== Responsive ========*/
     @media(max-width:768px){.hero h1{font-size:2rem;}}
@@ -226,10 +239,10 @@
       <h1>Next Generation <span>Script Execution</span></h1>
       <p>Experience unmatched power and precision with Nexus’s cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
       <div class="btn-group">
-        <a href="#releases" class="btn btn-primary">
-          Download <svg data-lucide="arrow-right"></svg>
+        <a href="#releases" class="btn btn-primary small">
+          <svg data-lucide="download-cloud"></svg> Download
         </a>
-        <a href="https://discord.gg/f5YSnNacsa" target="_blank" class="btn btn-secondary">
+        <a href="https://discord.gg/f5YSnNacsa" target="_blank" class="btn btn-secondary small">
           <svg data-lucide="message-circle"></svg> Discord
         </a>
       </div>
@@ -271,22 +284,22 @@
           <h3>Script Hub</h3>
           <p>Integrated Script Hub right within the UI so you never need to go searching online for scripts again!</p>
         </div>
-        <!-- …add more cards if you like… -->
       </div>
     </section>
 
-    <!-- Releases -->
+    <!-- Download Card -->
     <section id="releases">
-      <h2>Download Releases</h2>
-      <p>All Nexus releases are on GitHub. Grab the latest <code>nexus.zip</code> below:</p>
-      <ul>
-        <li>
-          <a href="https://github.com/yourusername/nexus/releases/latest/download/nexus.zip" target="_blank">
-            Latest Release
-          </a>
-        </li>
-        <!-- Add any older versions manually if needed -->
-      </ul>
+      <h2>Download the latest version of Nexus</h2>
+      <div class="download-card">
+        <svg data-lucide="download-cloud"></svg>
+        <a
+          href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip"
+          class="btn btn-primary small"
+          target="_blank"
+        >
+          Download Nexus
+        </a>
+      </div>
     </section>
 
     <!-- Showcase (placeholder) -->
