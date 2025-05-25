@@ -1,173 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Nexus Key Portal</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background-color: black;
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      color: #00ffea;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexa – Next Generation Script Execution</title>
 
-    canvas {
+  <!-- Poppins & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-p6O+jS0b2oPv/Tbwb3YdTg3hu7Ow+SZUVAGz6f5UuR/X/EpXG1ojrjFHn/2LA+5I5hRwQ+XauCbt+m6Fh3j1hQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /*======== variables & reset ========*/
+    :root {
+      --clr-primary: #2563eb;
+      --clr-bg: #0f172a;
+      --clr-bg-alt: #1e293b;
+      --clr-text: #f8fafc;
+      --clr-text-light: #cbd5e1;
+      --radius: 8px;
+      --spacing: 1rem;
+    }
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.5;
+      color: var(--clr-text);
+      background: var(--clr-bg);
+    }
+    /* subtle grid background */
+    body::before {
+      content: '';
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--clr-bg-alt) 1px, transparent 1px),
+        linear-gradient(90deg, var(--clr-bg-alt) 1px, transparent 1px);
+      background-size: 50px 50px;
       z-index: -1;
     }
 
-    .hidden { display: none; }
-
-    h1, h2, p, #accessGranted {
-      background: linear-gradient(90deg, #00ffea, #00bfff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px #00bfff, 0 0 20px #00ffea;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    h1 { font-size: 3em; margin-bottom: 20px; }
-    h2, #key, #timeLeft, #accessGranted {
-      font-size: 2em;
-      opacity: 0;
-      transition: opacity 2s ease;
-      margin: 10px;
-    }
-    p { font-size: 1.2em; }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00bfff, 0 0 10px #00ffea; }
-      to   { text-shadow: 0 0 20px #00bfff, 0 0 30px #00ffea; }
-    }
-
-    /* INTRO: no overlay */
-    #loadingScreen {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+    /*======== header/nav ========*/
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--clr-bg);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      background-color: transparent;
-      opacity: 1;
-      transition: opacity 1.5s ease;
+      justify-content: space-between;
+      padding: var(--spacing);
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.5rem;
+      color: var(--clr-primary);
+      font-weight: 600;
+    }
+    nav ul {
+      display: flex;
+      gap: var(--spacing);
+      list-style: none;
+    }
+    nav a {
+      position: relative;
+      color: var(--clr-text);
+      text-decoration: none;
+      font-weight: 500;
+      text-transform: uppercase;
+      padding: 0.25rem;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--clr-primary);
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
     }
 
-    /* MAIN: dark overlay */
-    #mainContent {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--clr-text);
+      cursor: pointer;
+    }
+
+    /*======== hero ========*/
+    .hero {
+      text-align: center;
+      padding: calc(var(--spacing)*4) var(--spacing);
+    }
+    .badge {
+      display: inline-flex;
       align-items: center;
-      background-color: rgba(0, 0, 0, 0.85);
-      opacity: 1;
-      transition: opacity 1.5s ease;
+      gap: 0.5rem;
+      background: var(--clr-bg-alt);
+      color: var(--clr-primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      margin-bottom: var(--spacing);
+    }
+    .hero h1 {
+      font-size: 2.75rem;
+      line-height: 1.2;
+    }
+    .hero h1 span {
+      color: var(--clr-primary);
+    }
+    .hero p {
+      margin-top: 0.75rem;
+      color: var(--clr-text-light);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-group {
+      margin-top: var(--spacing);
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--clr-primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #1e4fb3;
+    }
+    .btn-secondary {
+      background: var(--clr-bg-alt);
+      color: var(--clr-text);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    /*======== stats ========*/
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: var(--spacing);
+      padding: calc(var(--spacing)*2) var(--spacing);
+    }
+    .stats .card {
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+    }
+    .stats .card:hover {
+      transform: translateY(-5px);
+    }
+    .stats .card i {
+      font-size: 2rem;
+      color: var(--clr-primary);
+    }
+    .stats .card h3 {
+      margin-top: 0.5rem;
+      font-size: 1.5rem;
+    }
+    .stats .card p {
+      margin-top: 0.25rem;
+      color: var(--clr-text-light);
+    }
+
+    /*======== features ========*/
+    .features {
+      text-align: center;
+      padding: calc(var(--spacing)*4) var(--spacing);
+    }
+    .features h2 {
+      font-size: 2rem;
+    }
+    .features p {
+      margin-top: 0.5rem;
+      color: var(--clr-text-light);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: calc(var(--spacing)*2);
+      margin-top: calc(var(--spacing)*2);
+    }
+    .feature-card {
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      transition: box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .feature-card i {
+      font-size: 2rem;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem;
+      border-radius: 50%;
+      color: var(--clr-primary);
+    }
+    .feature-card h3 {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+    }
+    .feature-card p {
+      margin-top: 0.5rem;
+      color: var(--clr-text-light);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /*======== responsive ========*/
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .hamburger { display: block; }
+      header.nav-open nav ul {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: var(--spacing);
+        background: var(--clr-bg-alt);
+        padding: var(--spacing);
+        border-radius: var(--radius);
+        gap: var(--spacing);
+      }
     }
   </style>
 </head>
 <body>
 
-<canvas id="matrixCanvas"></canvas>
+  <header>
+    <div class="logo">Nexa</div>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#showcase">Showcase</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+  </header>
 
-<!-- INTRO SCREEN -->
-<div id="loadingScreen">
-  <h1>NEXUS</h1>
-  <p id="fetchingText">Fetching active key...</p>
-</div>
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <span class="badge"><i class="fas fa-bolt"></i> Most Advanced Executor</span>
+      <h1>Next Generation <span>Script Execution</span></h1>
+      <p>Experience unmatched power and precision with Nexa’s cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
+      <div class="btn-group">
+        <a href="#download" class="btn btn-primary">Download <i class="fas fa-arrow-right"></i></a>
+        <a href="#" class="btn btn-secondary"><i class="fas fa-play"></i> Watch Demo</a>
+      </div>
+    </section>
 
-<!-- MAIN CONTENT -->
-<div id="mainContent" class="hidden">
-  <h2 id="accessGranted">ACCESS GRANTED</h2>
-  <h2 id="key">Loading Key...</h2>
-  <p id="timeLeft">Calculating time left...</p>
-</div>
+    <!-- Stats -->
+    <section class="stats">
+      <div class="card">
+        <i class="fas fa-bolt"></i>
+        <h3>3-5 ms</h3>
+        <p>Injection Speed</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>200 +</h3>
+        <p>Active Users</p>
+      </div>
+    </section>
 
-<script>
-  // Matrix code rain
-  const canvas = document.getElementById("matrixCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.height = window.innerHeight;
-  canvas.width  = window.innerWidth;
-  const letters = "01";
-  const fontSize = 14;
-  const columns = canvas.width / fontSize;
-  const drops = Array(Math.floor(columns)).fill(1);
+    <!-- Features -->
+    <section class="features" id="features">
+      <h2>Features</h2>
+      <p>Discover what makes Nexa special</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Secure</h3>
+          <p>We make sure your time using our exploit is secure and undetected.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-bullseye"></i>
+          <h3>Unrestricted Execution</h3>
+          <p>Featuring 99% UNC for free, Nexa is able to run any script on the market!</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-th-large"></i>
+          <h3>Script Hub</h3>
+          <p>Integrated Script Hub right within the UI so you never need to go searching online for scripts again!</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-credit-card"></i>
+          <h3>Future Updates</h3>
+          <p>Always stay ahead with rolling updates and back-compatibility built-in.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-lock"></i>
+          <h3>Locked</h3>
+          <p>Premium security layers ensure you stay undetected in even the toughest scenarios.</p>
+        </div>
+      </div>
+    </section>
 
-  function drawMatrix() {
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = "#00ff00";
-    ctx.font = fontSize + "px monospace";
-    drops.forEach((y,i) => {
-      const text = letters[Math.floor(Math.random()*letters.length)];
-      ctx.fillText(text, i*fontSize, y*fontSize);
-      drops[i] = y*fontSize > canvas.height && Math.random()>0.975 ? 0 : y+1;
+    <!-- Showcase (placeholder) -->
+    <section class="features" id="showcase">
+      <h2>Showcase</h2>
+      <p>Coming soon…</p>
+    </section>
+  </main>
+
+  <script>
+    // mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const header = document.querySelector('header');
+    hamburger.addEventListener('click', ()=> {
+      header.classList.toggle('nav-open');
     });
-  }
-  setInterval(drawMatrix,50);
 
-  // Intro sequence
-  setTimeout(() => {
-    document.getElementById('loadingScreen').style.opacity = 0;
-    setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-      const main = document.getElementById('mainContent');
-      main.classList.remove('hidden');
-      main.style.opacity = 1;
-      document.getElementById('accessGranted').style.opacity = 1;
-      setTimeout(() => {
-        document.getElementById('key').style.opacity = 1;
-        document.getElementById('timeLeft').style.opacity = 1;
-        fetchKeysAndPickRandom();
-      },1000);
-    },1500);
-  },5000);
-
-  // Cookie + IP + Key logic
-  function setCookie(n,v,d){ const e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=`${n}=${v};expires=${e.toUTCString()};path=/`; }
-  function getCookie(n){ const c=`; ${document.cookie}`.split(`; ${n}=`); return c.length===2?c.pop().split(';').shift():null; }
-  async function getIP(){ const r=await fetch('https://api.ipify.org?format=json'); return (await r.json()).ip; }
-  function startCountdown(ts){
-    const exp=new Date(Number(ts));
-    const upd=()=>{
-      const diff=exp-new Date();
-      if(diff<=0){ document.getElementById('timeLeft').innerText="Key expired. Please refresh."; clearInterval(timer); return; }
-      const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
-      document.getElementById('timeLeft').innerText=`This key is active for ${d} days ${h} hours ${m} minutes ${s} seconds`;
-    };
-    upd(); const timer=setInterval(upd,1000);
-  }
-  async function fetchKeysAndPickRandom(){
-    try {
-      const t=await (await fetch('https://gist.githubusercontent.com/CoderDude1232/8289017019095e5dc6b622ebcd7f5aa8/raw/00bf4766c1a1944159ff07cd671c433aa363adf7/keys.txt')).text();
-      const keys=t.split(/\r?\n/).filter(k=>k.trim());
-      const ip=await getIP(), stored=getCookie('userKey');
-      if(stored){
-        const [sip,sk,se]=stored.split('|');
-        if(sip===ip&&sk&&se){ document.getElementById('key').innerText=sk; startCountdown(se); return; }
-      }
-      const rk=keys[Math.floor(Math.random()*keys.length)];
-      const expd=new Date(); expd.setTime(expd.getTime()+2*864e5);
-      setCookie('userKey',`${ip}|${rk}|${expd.getTime()}`,2);
-      document.getElementById('key').innerText=rk;
-      startCountdown(expd.getTime());
-    } catch(e){
-      document.getElementById('key').innerText='Failed to load keys.';
-      document.getElementById('timeLeft').innerText='';
-      console.error(e);
-    }
-  }
-</script>
-
+    // close mobile menu on link click + smooth scroll active link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', e => {
+        header.classList.remove('nav-open');
+        document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
