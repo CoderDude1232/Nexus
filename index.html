@@ -12,7 +12,7 @@
   <style>
     /*======== Variables & Reset ========*/
     :root {
-      --clr-primary: #2563eb;
+      --clr-primary: #8b5cf6;          /* Vivid purple */
       --clr-bg-alt: rgba(0,0,0,0.2);
       --clr-text: #f8fafc;
       --clr-text-light: #cbd5e1;
@@ -21,95 +21,98 @@
       --btn-small-padding: 0.4rem 1rem;
       --btn-small-font: 0.9rem;
     }
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; }
     body {
-      font-family:'Poppins',sans-serif;
-      color:var(--clr-text);
-      background: linear-gradient(-45deg,#0f172a,#1e293b,#020617,#0f172a);
-      background-size:400% 400%;
-      animation:gradientBG 20s ease infinite;
-      min-height:100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--clr-text);
+      background: linear-gradient(-45deg, #1a0b33, #2e0f4a, #1a0b33, #2e0f4a);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      min-height: 100vh;
     }
     @keyframes gradientBG {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
+      0%   { background-position:   0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position:   0% 50%; }
     }
 
     /*======== Header / Nav ========*/
     header {
-      position:sticky; top:0;
-      background:rgba(15,23,42,0.85);
-      backdrop-filter:blur(10px);
-      display:flex; align-items:center; justify-content:space-between;
-      padding:var(--spacing); z-index:100;
+      position: sticky; top: 0;
+      background: rgba(15, 0, 30, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--spacing); z-index: 100;
     }
     .logo {
-      font-size:1.5rem; color:var(--clr-primary); font-weight:600;
+      font-size: 1.5rem; color: var(--clr-primary); font-weight: 600;
     }
     nav ul {
-      display:flex; gap:var(--spacing); list-style:none;
+      display: flex; gap: var(--spacing); list-style: none;
     }
     nav a {
-      position:relative; color:var(--clr-text);
-      text-decoration:none; font-weight:500; text-transform:uppercase;
-      padding:0.25rem;
+      position: relative; color: var(--clr-text);
+      text-decoration: none; font-weight: 500; text-transform: uppercase;
+      padding: 0.25rem;
     }
     nav a::after {
-      content:''; position:absolute; bottom:-4px; left:0;
-      width:0; height:2px; background:var(--clr-primary);
-      transition:width .3s ease;
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--clr-primary);
+      transition: width 0.3s ease;
     }
     nav a:hover::after,
-    nav a.active::after { width:100%; }
+    nav a.active::after { width: 100%; }
     .hamburger {
-      display:none; font-size:1.5rem; color:var(--clr-text);
-      cursor:pointer;
+      display: none; font-size: 1.5rem; color: var(--clr-text);
+      cursor: pointer;
     }
 
     /*======== Hero ========*/
     .hero {
-      text-align:center; padding:calc(var(--spacing)*4) var(--spacing);
+      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
     }
     .badge {
-      display:inline-flex; align-items:center; gap:.5rem;
-      background:var(--clr-bg-alt); color:var(--clr-primary);
-      padding:.25rem .75rem; border-radius:var(--radius); font-weight:500;
-      margin-bottom:var(--spacing);
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--clr-bg-alt); color: var(--clr-primary);
+      padding: 0.25rem 0.75rem; border-radius: var(--radius); font-weight: 500;
+      margin-bottom: var(--spacing);
     }
     .hero h1 {
-      font-size:2.75rem; line-height:1.2;
+      font-size: 2.75rem; line-height: 1.2;
     }
-    .hero h1 span { color:var(--clr-primary); }
+    .hero h1 span { color: var(--clr-primary); }
     .hero p {
-      margin-top:.75rem; color:var(--clr-text-light);
-      max-width:600px; margin:0 auto;
+      margin-top: 0.75rem; color: var(--clr-text-light);
+      max-width: 600px; margin: 0 auto;
     }
     .btn-group {
-      margin-top:var(--spacing);
-      display:inline-flex; gap:1rem; flex-wrap:wrap;
-      justify-content:center;
+      margin-top: var(--spacing);
+      display: inline-flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center;
     }
     .btn {
-      display:inline-flex; align-items:center; gap:.5rem;
-      padding:.75rem 1.5rem; border-radius:var(--radius);
-      font-weight:500; text-decoration:none;
-      font-size:1rem;
-      transition:transform .2s ease, background .2s ease;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius);
+      font-weight: 500; text-decoration: none;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+      color: #fff;
     }
     .btn-primary {
-      background:var(--clr-primary); color:#fff;
+      background: var(--clr-primary);
     }
     .btn-primary:hover {
-      transform:translateY(-2px); background:#1e4fb3;
+      transform: translateY(-2px); background: #6d3fd3;
     }
     .btn-secondary {
-      background:var(--clr-bg-alt); color:var(--clr-text);
+      background: var(--clr-bg-alt); color: var(--clr-text);
     }
-    .btn-secondary:hover { transform:translateY(-2px); }
+    .btn-secondary:hover { transform: translateY(-2px); }
 
-    /* smaller version */
+    /* smaller version for button */
     .btn.small {
       padding: var(--btn-small-padding);
       font-size: var(--btn-small-font);
@@ -117,100 +120,122 @@
 
     /*======== Stats ========*/
     .stats-container {
-      max-width:600px; margin:0 auto;
-      padding:calc(var(--spacing)*2) var(--spacing);
+      max-width: 600px; margin: 0 auto;
+      padding: calc(var(--spacing)*2) var(--spacing);
     }
     .stats {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:var(--spacing);
-      justify-items:center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--spacing);
+      justify-items: center;
     }
     .stats .card {
-      background:var(--clr-bg-alt);
-      border-radius:var(--radius);
-      padding:var(--spacing);
-      text-align:center;
-      backdrop-filter:blur(10px);
-      transition:transform .3s ease;
-      width:180px;
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+      width: 180px;
     }
-    .stats .card:hover { transform:translateY(-5px); }
-    .stats .card svg { width:32px; height:32px; stroke:var(--clr-primary); }
+    .stats .card:hover { transform: translateY(-5px); }
+    .stats .card svg {
+      width: 32px; height: 32px; stroke: var(--clr-primary);
+    }
     .stats .card h3 {
-      margin-top:.5rem; font-size:1.5rem;
+      margin-top: 0.5rem; font-size: 1.5rem;
     }
     .stats .card p {
-      margin-top:.25rem; color:var(--clr-text-light);
+      margin-top: 0.25rem; color: var(--clr-text-light);
     }
 
     /*======== Features ========*/
     .features {
-      text-align:center; padding:calc(var(--spacing)*4) var(--spacing);
+      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
     }
-    .features h2 { font-size:2rem; }
-    .features p { margin-top:.5rem; color:var(--clr-text-light); }
+    .features h2 { font-size: 2rem; }
+    .features p { margin-top: 0.5rem; color: var(--clr-text-light); }
     .features-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:calc(var(--spacing)*2);
-      margin-top:calc(var(--spacing)*2);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: calc(var(--spacing)*2);
+      margin-top: calc(var(--spacing)*2);
     }
     .feature-card {
-      background:var(--clr-bg-alt);
-      border-radius:var(--radius);
-      padding:var(--spacing);
-      transition:box-shadow .3s ease;
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      transition: box-shadow 0.3s ease;
     }
     .feature-card:hover {
-      box-shadow:0 4px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .feature-card svg {
-      width:32px; height:32px;
-      background:rgba(255,255,255,0.1);
-      padding:.5rem; border-radius:50%;
-      stroke:var(--clr-primary);
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem; border-radius: 50%;
+      stroke: var(--clr-primary);
     }
     .feature-card h3 {
-      margin-top:1rem; font-size:1.25rem;
+      margin-top: 1rem; font-size: 1.25rem;
     }
     .feature-card p {
-      margin-top:.5rem; color:var(--clr-text-light);
-      font-size:.95rem; line-height:1.4;
+      margin-top: 0.5rem; color: var(--clr-text-light);
+      font-size: 0.95rem; line-height: 1.4;
     }
 
-    /*======== Download Card ========*/
+    /*======== Download Card + Key System ========*/
     #releases {
-      text-align:center; padding:calc(var(--spacing)*4) var(--spacing);
+      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
     }
     #releases h2 {
-      font-size:1.75rem; margin-bottom:1rem;
+      font-size: 1.75rem; margin-bottom: 1rem;
     }
     .download-card {
-      display:inline-flex;
-      flex-direction:column;
-      align-items:center;
-      gap:1rem;
-      background:var(--clr-bg-alt);
-      padding:var(--spacing);
-      border-radius:var(--radius);
-      backdrop-filter:blur(10px);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      background: var(--clr-bg-alt);
+      padding: var(--spacing);
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
     }
     .download-card > svg {
-  stroke: var(--clr-primary);
-}
+      width: 48px; height: 48px;
+      stroke: var(--clr-primary);
+    }
+    .download-card .btn-group {
+      display: inline-flex; gap: 0.5rem;
+    }
+
+    /*======== Key Info ========*/
+    #key-info {
+      margin-top: 0.75rem;
+      text-align: center;
+      color: var(--clr-text-light);
+      font-size: 0.95rem;
+    }
+    #key-info span#key-value {
+      font-family: monospace;
+      font-weight: 500;
+      margin: 0 0.25rem;
+      color: var(--clr-primary);
+    }
 
     /*======== Responsive ========*/
-    @media(max-width:768px){.hero h1{font-size:2rem;}}
-    @media(max-width:600px){
-      nav ul{display:none;}
-      .hamburger{display:block;}
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .hamburger { display: block; }
       header.nav-open nav ul {
-        display:flex; flex-direction:column;
-        position:absolute; top:100%; right:var(--spacing);
-        background:rgba(15,23,42,0.9);
-        padding:var(--spacing); border-radius:var(--radius);
-        gap:var(--spacing);
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; right: var(--spacing);
+        background: rgba(15, 0, 30, 0.9);
+        padding: var(--spacing); border-radius: var(--radius);
+        gap: var(--spacing);
       }
     }
   </style>
@@ -286,41 +311,34 @@
         </div>
       </div>
     </section>
-    
-    <!-- Download Card + Key System -->
-<section id="releases">
-  <h2>Download the latest version of Nexus</h2>
 
-  <div class="download-card">
-    <svg data-lucide="download-cloud"></svg>
+    <!-- Download + Key System -->
+    <section id="releases">
+      <h2>Download the latest version of Nexus</h2>
 
-    <div class="btn-group">
-      <a
-        href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip"
-        class="btn btn-primary small"
-        target="_blank"
-      >
-        <svg data-lucide="download-cloud"></svg> Download
-      </a>
+      <div class="download-card">
+        <svg data-lucide="download-cloud"></svg>
 
-      <!-- now styled like the Download button -->
-      <button id="get-key" class="btn btn-primary small">
-        <svg data-lucide="key"></svg> Get Key
-      </button>
-    </div>
-  </div>
+        <div class="btn-group">
+          <a
+            href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip"
+            class="btn btn-primary small"
+            target="_blank"
+          >
+            <svg data-lucide="download-cloud"></svg> Download
+          </a>
+          <button id="get-key" class="btn btn-primary small">
+            <svg data-lucide="key"></svg> Get Key
+          </button>
+        </div>
+      </div>
 
-  <!-- moved outside the download-card -->
-  <div
-    id="key-info"
-    style="margin-top:0.75rem; text-align:center; display:none; color:var(--clr-text-light);"
-  >
-    <span>Your key: </span>
-    <span id="key-value"></span>
-    <span id="key-ttl"></span>
-  </div>
-</section>
-
+      <div id="key-info" style="display:none;">
+        <span>Your key:</span>
+        <span id="key-value"></span>
+        <span id="key-ttl"></span>
+      </div>
+    </section>
 
     <!-- Showcase (placeholder) -->
     <section class="features" id="showcase">
@@ -330,123 +348,109 @@
   </main>
 
   <script>
-  // cookie helpers
-  function getCookie(name) {
-    const m = document.cookie
-      .split(';')
-      .map(c => c.trim().split('='))
-      .find(([k]) => k === name);
-    return m ? decodeURIComponent(m[1]) : null;
-  }
-  function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + days*24*60*60*1000);
-    document.cookie = name + '=' + encodeURIComponent(value)
-      + ';expires=' + d.toUTCString() + ';path=/';
-  }
-  function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=0; path=/';
-  }
+    // cookie helpers
+    function getCookie(name) {
+      const m = document.cookie
+        .split(';')
+        .map(c => c.trim().split('='))
+        .find(([k]) => k === name);
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/';
+    }
+    function eraseCookie(name) {
+      document.cookie = name + '=; Max-Age=0; path=/';
+    }
 
-  // build a “masked” placeholder from the real key:
-  // e.g. real = "ABCDE-FGHIJ-KLMNO-PQRST-UVWXY"
-  // placeholder = "ABCD#-#####-#####-#####-#####"
-  function makePlaceholder(key) {
-    const parts = key.split('-');
-    const out = parts.map((p,i) => {
-      if (i === 0) {
-        return p.slice(0,4) + '#';
-      } else {
-        return '#'.repeat(p.length);
-      }
-    });
-    return out.join('-');
-  }
+    // Build a “masked” placeholder: ABCD#-#####-#####-#####-#####
+    function makePlaceholder(key) {
+      const parts = key.split('-');
+      return parts
+        .map((p, i) => i === 0 ? p.slice(0, 4) + '#' : '#'.repeat(p.length))
+        .join('-');
+    }
 
-  // animate reveal from placeholder → actual
-  function animateKeyReveal(el, actual) {
-    const placeholder = makePlaceholder(actual).split('');
-    const chars = placeholder.slice();
-    const indices = placeholder
-      .map((ch,i) => ch === '#' ? i : null)
-      .filter(i => i !== null);
+    // Animate placeholder → real key
+    function animateKeyReveal(el, actual) {
+      const placeholder = makePlaceholder(actual).split('');
+      const chars = placeholder.slice();
+      const indices = placeholder
+        .map((ch, i) => ch === '#' ? i : null)
+        .filter(i => i !== null);
 
-    let idx = 0;
-    const interval = setInterval(() => {
-      if (idx >= indices.length) {
-        clearInterval(interval);
+      let idx = 0;
+      const interval = setInterval(() => {
+        if (idx >= indices.length) {
+          clearInterval(interval);
+          return;
+        }
+        const pos = indices[idx++];
+        chars[pos] = actual[pos];
+        el.textContent = chars.join('');
+      }, 50);
+    }
+
+    // Show/hide key UI based on cookie
+    function updateKeyDisplay() {
+      const key = getCookie('nexus_key');
+      const exp = getCookie('nexus_key_exp');
+      const btn = document.getElementById('get-key');
+      const info = document.getElementById('key-info');
+      const val = document.getElementById('key-value');
+      const ttl = document.getElementById('key-ttl');
+
+      if (!key || !exp || Date.now() > +exp) {
+        eraseCookie('nexus_key');
+        eraseCookie('nexus_key_exp');
+        btn.style.display = 'inline-flex';
+        info.style.display = 'none';
         return;
       }
-      const pos = indices[idx++];
-      chars[pos] = actual[pos];
-      el.textContent = chars.join('');
-    }, 50);
-  }
 
-  // show/hide key UI
-  function updateKeyDisplay() {
-    const key = getCookie('nexus_key');
-    const exp = getCookie('nexus_key_exp');
-    const btn = document.getElementById('get-key');
-    const info = document.getElementById('key-info');
-    const val = document.getElementById('key-value');
-    const ttl = document.getElementById('key-ttl');
+      btn.style.display = 'none';
+      info.style.display = 'block';
 
-    // if no key or expired → reset
-    if (!key || !exp || Date.now() > +exp) {
-      eraseCookie('nexus_key');
-      eraseCookie('nexus_key_exp');
-      btn.style.display = 'inline-flex';
-      info.style.display = 'none';
-      return;
+      let ms = +exp - Date.now();
+      const h = Math.floor(ms / 36e5); ms %= 36e5;
+      const m = Math.floor(ms / 6e4);  ms %= 6e4;
+      const s = Math.floor(ms / 1e3);
+
+      ttl.textContent = ` (${h}h ${m}m ${s}s left)`;
+      val.textContent = makePlaceholder(key);
+      animateKeyReveal(val, key);
     }
 
-    // we have a valid key
-    btn.style.display  = 'none';
-    info.style.display = 'block';
+    // fetch + assign a random key (1-day cookie)
+    async function fetchAndAssignKey() {
+      try {
+        const response = await fetch(
+          'https://gist.githubusercontent.com/CoderDude1232/6b5544352cf9b85faea91c89a1b9a052/raw/7d07241e225baa3f269d02801507fb7e5dfb4093/KeysForNexus.txt'
+        );
+        const text = await response.text();
+        const keys = text
+          .split('\n')
+          .map(l => l.trim())
+          .filter(l => l.length);
+        const chosen = keys[Math.floor(Math.random() * keys.length)];
 
-    // compute time-left once
-    let ms = +exp - Date.now();
-    const h = Math.floor(ms / 36e5); ms %= 36e5;
-    const m = Math.floor(ms / 6e4);  ms %= 6e4;
-    const s = Math.floor(ms / 1e3);
+        setCookie('nexus_key', chosen, 1);
+        setCookie('nexus_key_exp', Date.now() + 24 * 60 * 60 * 1000, 1);
 
-    ttl.textContent = ` (${h}h ${m}m ${s}s left)`;
+        updateKeyDisplay();
+      } catch (err) {
+        console.error('Failed to fetch keys:', err);
+      }
+    }
 
-    // start with placeholder
-    val.textContent = makePlaceholder(key);
-
-    // animate to real
-    animateKeyReveal(val, key);
-  }
-
-  // fetch + set cookie for 1 day
-  async function fetchAndAssignKey() {
-    try {
-      const r = await fetch(
-        'https://gist.githubusercontent.com/CoderDude1232/6b5544352cf9b85faea91c89a1b9a052/raw/7d07241e225baa3f269d02801507fb7e5dfb4093/KeysForNexus.txt'
-      );
-      const txt = await r.text();
-      const keys = txt.split('\n').map(l => l.trim()).filter(l => l);
-      const chosen = keys[Math.floor(Math.random()*keys.length)];
-
-      setCookie('nexus_key', chosen, 1);
-      setCookie('nexus_key_exp', Date.now() + 24*60*60*1000, 1);
-
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      document.getElementById('get-key')
+        .addEventListener('click', fetchAndAssignKey);
       updateKeyDisplay();
-    } catch(err) {
-      console.error('Key fetch failed:', err);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    lucide.createIcons();
-    document.getElementById('get-key')
-      .addEventListener('click', fetchAndAssignKey);
-    updateKeyDisplay();
-  });
-</script>
-
-
+    });
+  </script>
 </body>
 </html>
