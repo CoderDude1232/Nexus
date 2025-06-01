@@ -224,22 +224,25 @@
     }
 
     /*======== Showcase (YouTube Embed) ========*/
-    .showcase-video-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      height: 0;
-    }
-    .showcase-video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
+    /* Replace the old wrapper rules with these */
+.showcase-video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 56.25%; /* 9/16 = 0.5625 → 56.25% */
+  height: 0;
+}
+.showcase-video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
 
     /*======== Responsive ========*/
     @media (max-width: 768px) {
@@ -360,16 +363,17 @@
 
     <!-- Showcase (YouTube Embed) -->
     <section class="features" id="showcase">
-      <h2>Showcase</h2>
-      <p>Watch Nexus in action:</p>
-      <div class="showcase-video-wrapper">
-        <iframe
-          src="https://www.youtube.com/embed/D9lQTHtQRNg"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </section>
+  <h2>Showcase</h2>
+  <p>Watch Nexus in action:</p>
+  <div class="showcase-video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/D9lQTHtQRNg"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+</section>
+
   </main>
 
   <script>
