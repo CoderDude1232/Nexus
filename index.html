@@ -78,7 +78,25 @@
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--clr-bg-alt); color: var(--clr-primary);
       padding: 0.25rem 0.75rem; border-radius: var(--radius); font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
       margin-bottom: var(--spacing);
+    }
+    .rating svg {
+      width: 20px;
+      height: 20px;
+      fill: #fbbf24;
+      stroke: none;
+    }
+    .rating span {
+      color: var(--clr-text-light);
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
     }
     .hero h1 {
       font-size: 2.75rem; line-height: 1.2;
@@ -266,6 +284,14 @@
     <!-- Hero -->
     <section class="hero" id="home">
       <span class="badge"><svg data-lucide="zap"></svg> Most Advanced Executor</span>
+      <div class="rating">
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star-half"></svg>
+        <span>4.8</span>
+      </div>
       <h1>Next Generation <span>Script Execution</span></h1>
       <p>Experience unmatched power and precision with Nexus's cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
       <div class="btn-group">
