@@ -185,7 +185,7 @@
       font-size: 0.95rem; line-height: 1.4;
     }
 
-    /*======== Download Card + Key System ========*/
+    /*======== Download Card ========*/
     #releases {
       text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
     }
@@ -207,29 +207,7 @@
       stroke: var(--clr-primary);
     }
     .download-card .btn-group {
-      display: inline-flex; gap: 0.5rem;
       margin-top: 0;
-    }
-
-    /*======== Key Info ========*/
-    #key-info {
-      margin-top: 0.75rem;
-      text-align: center;
-      color: var(--clr-text-light);
-      font-size: 0.95rem;
-      background: var(--clr-bg-alt);
-      padding: 0.75rem;
-      border-radius: var(--radius);
-      display: inline-block;
-    }
-    #key-info span#key-value {
-      font-family: monospace;
-      font-weight: 500;
-      margin: 0 0.25rem;
-      color: var(--clr-primary);
-      background: rgba(255,255,255,0.1);
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
     }
 
     /*======== Showcase (YouTube Embed) ========*/
@@ -269,7 +247,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">Nexus</div>
     <nav>
@@ -340,31 +317,16 @@
       </div>
     </section>
 
-    <!-- Download + Key System -->
+    <!-- Download -->
     <section id="releases">
       <h2>Download the latest version of Nexus</h2>
-
       <div class="download-card">
         <svg data-lucide="download-cloud"></svg>
-
-        <div class="btn-group">
-          <a
-            href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip"
-            class="btn btn-primary small"
-            target="_blank"
-          >
-            <svg data-lucide="download-cloud"></svg> Download
-          </a>
-          <button id="get-key" class="btn btn-primary small">
-            <svg data-lucide="key"></svg> Get Key
-          </button>
-        </div>
-      </div>
-
-      <div id="key-info" style="display:none;">
-        <span>Your key:</span>
-        <span id="key-value"></span>
-        <span id="key-ttl"></span>
+        <a href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip" 
+           class="btn btn-primary small" 
+           target="_blank">
+          <svg data-lucide="download-cloud"></svg> Download Latest Version
+        </a>
       </div>
     </section>
 
@@ -383,101 +345,8 @@
   </main>
 
   <script>
-    // cookie helpers
-    function getCookie(name) {
-      const m = document.cookie
-        .split(';')
-        .map(c => c.trim().split('='))
-        .find(([k]) => k === name);
-      return m ? decodeURIComponent(m[1]) : null;
-    }
-    function setCookie(name, value, days) {
-      const d = new Date();
-      d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-      document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/';
-    }
-    function eraseCookie(name) {
-      document.cookie = name + '=; Max-Age=0; path=/';
-    }
-
-    // Generate a random key
-    function generateKey() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      const sections = [4, 5, 5, 5, 5]; // XXXX-XXXXX-XXXXX-XXXXX-XXXXX
-      return sections
-        .map(len => Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join(''))
-        .join('-');
-    }
-
-    // Animate placeholder → real key
-    function animateKeyReveal(el, actual) {
-      const placeholder = actual.replace(/[A-Z0-9]/g, '#').split('');
-      const chars = placeholder.slice();
-      const indices = placeholder
-        .map((ch, i) => ch === '#' ? i : null)
-        .filter(i => i !== null);
-
-      let idx = 0;
-      const interval = setInterval(() => {
-        if (idx >= indices.length) {
-          clearInterval(interval);
-          return;
-        }
-        const pos = indices[idx++];
-        chars[pos] = actual[pos];
-        el.textContent = chars.join('');
-      }, 50);
-    }
-
-    // Show/hide key UI based on cookie
-    function updateKeyDisplay() {
-      const key = getCookie('nexus_key');
-      const exp = getCookie('nexus_key_exp');
-      const btn = document.getElementById('get-key');
-      const info = document.getElementById('key-info');
-      const val = document.getElementById('key-value');
-      const ttl = document.getElementById('key-ttl');
-
-      if (!key || !exp || Date.now() > +exp) {
-        eraseCookie('nexus_key');
-        eraseCookie('nexus_key_exp');
-        btn.style.display = 'inline-flex';
-        info.style.display = 'none';
-        return;
-      }
-
-      btn.style.display = 'none';
-      info.style.display = 'block';
-
-      let ms = +exp - Date.now();
-      const h = Math.floor(ms / 36e5); ms %= 36e5;
-      const m = Math.floor(ms / 6e4);  ms %= 6e4;
-      const s = Math.floor(ms / 1e3);
-
-      ttl.textContent = ` (${h}h ${m}m ${s}s left)`;
-      
-      if (!val.dataset.revealed) {
-        val.dataset.revealed = 'true';
-        animateKeyReveal(val, key);
-      }
-    }
-
-    // Generate and assign a new key
-    function fetchAndAssignKey() {
-      const key = generateKey();
-      setCookie('nexus_key', key, 1);
-      setCookie('nexus_key_exp', Date.now() + 24 * 60 * 60 * 1000, 1);
-      updateKeyDisplay();
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      document.getElementById('get-key')
-        .addEventListener('click', fetchAndAssignKey);
-      updateKeyDisplay();
-      
-      // Update TTL every second
-      setInterval(updateKeyDisplay, 1000);
     });
   </script>
 </body>
