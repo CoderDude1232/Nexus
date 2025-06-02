@@ -12,7 +12,7 @@
   <style>
     /*======== Variables & Reset ========*/
     :root {
-      --clr-primary: #8b5cf6;          /* Vivid purple */
+      --clr-primary: #2563eb;          /* Changed to blue */
       --clr-bg-alt: rgba(0,0,0,0.2);
       --clr-text: #f8fafc;
       --clr-text-light: #cbd5e1;
@@ -28,7 +28,7 @@
     body {
       font-family: 'Poppins', sans-serif;
       color: var(--clr-text);
-      background: linear-gradient(-45deg, #1a0b33, #2e0f4a, #1a0b33, #2e0f4a);
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #1e293b); /* Changed to blue/slate */
       background-size: 400% 400%;
       animation: gradientBG 20s ease infinite;
       min-height: 100vh;
@@ -42,7 +42,7 @@
     /*======== Header / Nav ========*/
     header {
       position: sticky; top: 0;
-      background: rgba(15, 0, 30, 0.85);
+      background: rgba(15, 23, 42, 0.85); /* Changed to match new theme */
       backdrop-filter: blur(10px);
       display: flex; align-items: center; justify-content: space-between;
       padding: var(--spacing); z-index: 100;
@@ -100,12 +100,14 @@
       font-size: 1rem;
       transition: transform 0.2s ease, background 0.2s ease;
       color: #fff;
+      cursor: pointer;
+      border: none;
     }
     .btn-primary {
       background: var(--clr-primary);
     }
     .btn-primary:hover {
-      transform: translateY(-2px); background: #6d3fd3;
+      transform: translateY(-2px); background: #1d4ed8; /* Darker blue on hover */
     }
     .btn-secondary {
       background: var(--clr-bg-alt); color: var(--clr-text);
@@ -207,6 +209,7 @@
     }
     .download-card .btn-group {
       display: inline-flex; gap: 0.5rem;
+      margin-top: 0;
     }
 
     /*======== Key Info ========*/
@@ -215,34 +218,39 @@
       text-align: center;
       color: var(--clr-text-light);
       font-size: 0.95rem;
+      background: var(--clr-bg-alt);
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      display: inline-block;
     }
     #key-info span#key-value {
       font-family: monospace;
       font-weight: 500;
       margin: 0 0.25rem;
       color: var(--clr-primary);
+      background: rgba(255,255,255,0.1);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
     }
 
     /*======== Showcase (YouTube Embed) ========*/
-    /* Replace the old wrapper rules with these */
-.showcase-video-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding-top: 56.25%; /* 9/16 = 0.5625 → 56.25% */
-  height: 0;
-}
-.showcase-video-wrapper iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-
+    .showcase-video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: 56.25%;
+      height: 0;
+    }
+    .showcase-video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
 
     /*======== Responsive ========*/
     @media (max-width: 768px) {
@@ -254,7 +262,7 @@
       header.nav-open nav ul {
         display: flex; flex-direction: column;
         position: absolute; top: 100%; right: var(--spacing);
-        background: rgba(15, 0, 30, 0.9);
+        background: rgba(15, 23, 42, 0.9);
         padding: var(--spacing); border-radius: var(--radius);
         gap: var(--spacing);
       }
@@ -283,7 +291,7 @@
     <section class="hero" id="home">
       <span class="badge"><svg data-lucide="zap"></svg> Most Advanced Executor</span>
       <h1>Next Generation <span>Script Execution</span></h1>
-      <p>Experience unmatched power and precision with Nexus’s cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
+      <p>Experience unmatched power and precision with Nexus's cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
       <div class="btn-group">
         <a href="#releases" class="btn btn-primary small">
           <svg data-lucide="download-cloud"></svg> Download
@@ -363,17 +371,16 @@
 
     <!-- Showcase (YouTube Embed) -->
     <section class="features" id="showcase">
-  <h2>Showcase</h2>
-  <p>Watch Nexus in action:</p>
-  <div class="showcase-video-wrapper">
-    <iframe
-      src="https://www.youtube.com/embed/D9lQTHtQRNg"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-  </div>
-</section>
-
+      <h2>Showcase</h2>
+      <p>Watch Nexus in action:</p>
+      <div class="showcase-video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/D9lQTHtQRNg"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -394,7 +401,7 @@
       document.cookie = name + '=; Max-Age=0; path=/';
     }
 
-    // Build a “masked” placeholder (e.g. "ABCD#-#####-#####-#####-#####")
+    // Build a "masked" placeholder (e.g. "ABCD#-#####-#####-#####-#####")
     function makePlaceholder(key) {
       const parts = key.split('-');
       return parts
@@ -471,6 +478,7 @@
         updateKeyDisplay();
       } catch (err) {
         console.error('Failed to fetch keys:', err);
+        alert('Failed to fetch key. Please try again later.');
       }
     }
 
@@ -479,6 +487,9 @@
       document.getElementById('get-key')
         .addEventListener('click', fetchAndAssignKey);
       updateKeyDisplay();
+      
+      // Update TTL every second
+      setInterval(updateKeyDisplay, 1000);
     });
   </script>
 </body>
