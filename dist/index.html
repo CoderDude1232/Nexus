@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexus – Next Generation Script Execution</title>
+
+  <!-- Poppins + Lucide UMD -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.264.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /*======== Variables & Reset ========*/
+    :root {
+      --clr-primary: #2563eb;          /* Changed to blue */
+      --clr-bg-alt: rgba(0,0,0,0.2);
+      --clr-text: #f8fafc;
+      --clr-text-light: #cbd5e1;
+      --radius: 8px;
+      --spacing: 1rem;
+      --btn-small-padding: 0.4rem 1rem;
+      --btn-small-font: 0.9rem;
+    }
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--clr-text);
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #1e293b);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0%   { background-position:   0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position:   0% 50%; }
+    }
+
+    /*======== Header / Nav ========*/
+    header {
+      position: sticky; top: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--spacing); z-index: 100;
+    }
+    .logo {
+      font-size: 1.5rem; color: var(--clr-primary); font-weight: 600;
+    }
+    nav ul {
+      display: flex; gap: var(--spacing); list-style: none;
+    }
+    nav a {
+      position: relative; color: var(--clr-text);
+      text-decoration: none; font-weight: 500; text-transform: uppercase;
+      padding: 0.25rem;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--clr-primary);
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after,
+    nav a.active::after { width: 100%; }
+    .hamburger {
+      display: none; font-size: 1.5rem; color: var(--clr-text);
+      cursor: pointer;
+    }
+
+    /*======== Hero ========*/
+    .hero {
+      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--clr-bg-alt); color: var(--clr-primary);
+      padding: 0.25rem 0.75rem; border-radius: var(--radius); font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: var(--spacing);
+    }
+    .rating svg {
+      width: 20px;
+      height: 20px;
+      fill: #fbbf24;
+      stroke: none;
+    }
+    .rating span {
+      color: var(--clr-text-light);
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+    }
+    .hero h1 {
+      font-size: 2.75rem; line-height: 1.2;
+    }
+    .hero h1 span { color: var(--clr-primary); }
+    .hero p {
+      margin-top: 0.75rem; color: var(--clr-text-light);
+      max-width: 600px; margin: 0 auto;
+    }
+    .btn-group {
+      margin-top: var(--spacing);
+      display: inline-flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius);
+      font-weight: 500; text-decoration: none;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--clr-primary);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px); background: #1d4ed8;
+    }
+    .btn-secondary {
+      background: var(--clr-bg-alt); color: var(--clr-text);
+    }
+    .btn-secondary:hover { transform: translateY(-2px); }
+
+    .btn.small {
+      padding: var(--btn-small-padding);
+      font-size: var(--btn-small-font);
+    }
+
+    /*======== Stats ========*/
+    .stats-container {
+      max-width: 600px; margin: 0 auto;
+      padding: calc(var(--spacing)*2) var(--spacing);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--spacing);
+      justify-items: center;
+    }
+    .stats .card {
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+      width: 180px;
+    }
+    .stats .card:hover { transform: translateY(-5px); }
+    .stats .card svg {
+      width: 32px; height: 32px; stroke: var(--clr-primary);
+    }
+    .stats .card h3 {
+      margin-top: 0.5rem; font-size: 1.5rem;
+    }
+    .stats .card p {
+      margin-top: 0.25rem; color: var(--clr-text-light);
+    }
+
+    /*======== Reviews ========*/
+    .reviews {
+      text-align: center;
+      padding: calc(var(--spacing)*4) var(--spacing);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .reviews h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: calc(var(--spacing)*2);
+      margin-top: calc(var(--spacing)*2);
+    }
+    .review-card {
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: calc(var(--spacing)*1.5);
+      text-align: left;
+      transition: transform 0.3s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+    }
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--clr-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .review-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    .review-info .review-date {
+      font-size: 0.9rem;
+      color: var(--clr-text-light);
+    }
+    .review-rating {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .review-rating svg {
+      width: 16px;
+      height: 16px;
+      fill: #fbbf24;
+      stroke: none;
+    }
+    .review-content {
+      color: var(--clr-text-light);
+      line-height: 1.6;
+    }
+
+    /*======== Features ========*/
+    .features {
+      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
+    }
+    .features h2 { font-size: 2rem; }
+    .features p { margin-top: 0.5rem; color: var(--clr-text-light); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: calc(var(--spacing)*2);
+      margin-top: calc(var(--spacing)*2);
+    }
+    .feature-card {
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      transition: box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .feature-card svg {
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem; border-radius: 50%;
+      stroke: var(--clr-primary);
+    }
+    .feature-card h3 {
+      margin-top: 1rem; font-size: 1.25rem;
+    }
+    .feature-card p {
+      margin-top: 0.5rem; color: var(--clr-text-light);
+      font-size: 0.95rem; line-height: 1.4;
+    }
+
+    /*======== Download Card ========*/
+    #releases {
+      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
+    }
+    #releases h2 {
+      font-size: 1.75rem; margin-bottom: 1rem;
+    }
+    .download-card {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      background: var(--clr-bg-alt);
+      padding: var(--spacing);
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+    }
+    .download-card > svg {
+      width: 48px; height: 48px;
+      stroke: var(--clr-primary);
+    }
+    .download-card .btn-group {
+      margin-top: 0;
+    }
+
+    /*======== Showcase (YouTube Embed) ========*/
+    .showcase-video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: 56.25%;
+      height: 0;
+    }
+    .showcase-video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    /*======== Responsive ========*/
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .hamburger { display: block; }
+      header.nav-open nav ul {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; right: var(--spacing);
+        background: rgba(15, 23, 42, 0.9);
+        padding: var(--spacing); border-radius: var(--radius);
+        gap: var(--spacing);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Nexus</div>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#releases">Download</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#showcase">Showcase</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" onclick="document.querySelector('header').classList.toggle('nav-open')">
+      <svg data-lucide="menu"></svg>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <span class="badge"><svg data-lucide="zap"></svg> Most Advanced Executor</span>
+      <div class="rating">
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star"></svg>
+        <svg data-lucide="star-half"></svg>
+        <span>4.8</span>
+      </div>
+      <h1>Next Generation <span>Script Execution</span></h1>
+      <p>Experience unmatched power and precision with Nexus's cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
+      <div class="btn-group">
+        <a href="#releases" class="btn btn-primary small">
+          <svg data-lucide="download-cloud"></svg> Download
+        </a>
+        <a href="https://discord.gg/f5YSnNacsa" target="_blank" class="btn btn-secondary small">
+          <svg data-lucide="message-circle"></svg> Discord
+        </a>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats-container">
+      <div class="stats">
+        <div class="card">
+          <svg data-lucide="zap"></svg>
+          <h3>1–2 ms</h3>
+          <p>Injection Speed</p>
+        </div>
+        <div class="card">
+          <svg data-lucide="users"></svg>
+          <h3>50+</h3>
+          <p>Active Users</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <section class="reviews">
+      <h2>What Our Users Say</h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">A</div>
+            <div class="review-info">
+              <h3>print("ash")</h3>
+              <div class="review-date">2 days ago</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+          </div>
+          <p class="review-content">Best executor I've ever used! The script hub is amazing and execution is lightning fast. No more dealing with annoying key systems.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">M</div>
+            <div class="review-info">
+              <h3>! dudes</h3>
+              <div class="review-date">1 week ago</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+          </div>
+          <p class="review-content">Finally an executor that actually works! Clean UI, super stable, and the support team is really helpful. 10/10 would recommend!</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">S</div>
+            <div class="review-info">
+              <h3>idk</h3>
+              <div class="review-date">3 days ago</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star-half"></svg>
+          </div>
+          <p class="review-content">Love how fast it injects! The built-in script hub saves so much time. Haven't had a single crash since I started using Nexus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+      <h2>Features</h2>
+      <p>Discover what makes Nexus special</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <svg data-lucide="shield"></svg>
+          <h3>Secure</h3>
+          <p>We make sure your time using our exploit is secure and undetected.</p>
+        </div>
+        <div class="feature-card">
+          <svg data-lucide="target"></svg>
+          <h3>Unrestricted Execution</h3>
+          <p>Featuring 99% UNC for free, Nexus is able to run any script on the market!</p>
+        </div>
+        <div class="feature-card">
+          <svg data-lucide="grid"></svg>
+          <h3>Script Hub</h3>
+          <p>Integrated Script Hub right within the UI so you never need to go searching online for scripts again!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section id="releases">
+      <h2>Download the latest version of Nexus</h2>
+      <div class="download-card">
+        <svg data-lucide="download-cloud"></svg>
+        <a href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip" 
+           class="btn btn-primary small" 
+           target="_blank">
+          <svg data-lucide="download-cloud"></svg> Download Latest Version
+        </a>
+      </div>
+    </section>
+
+    <!-- Showcase (YouTube Embed) -->
+    <section class="features" id="showcase">
+      <h2>Showcase</h2>
+      <p>Watch Nexus in action:</p>
+      <div class="showcase-video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/D9lQTHtQRNg"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
