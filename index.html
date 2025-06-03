@@ -168,6 +168,74 @@
       margin-top: 0.25rem; color: var(--clr-text-light);
     }
 
+    /*======== Reviews ========*/
+    .reviews {
+      text-align: center;
+      padding: calc(var(--spacing)*4) var(--spacing);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .reviews h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: calc(var(--spacing)*2);
+      margin-top: calc(var(--spacing)*2);
+    }
+    .review-card {
+      background: var(--clr-bg-alt);
+      border-radius: var(--radius);
+      padding: calc(var(--spacing)*1.5);
+      text-align: left;
+      transition: transform 0.3s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+    }
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .review-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--clr-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .review-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    .review-info .review-date {
+      font-size: 0.9rem;
+      color: var(--clr-text-light);
+    }
+    .review-rating {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .review-rating svg {
+      width: 16px;
+      height: 16px;
+      fill: #fbbf24;
+      stroke: none;
+    }
+    .review-content {
+      color: var(--clr-text-light);
+      line-height: 1.6;
+    }
+
     /*======== Features ========*/
     .features {
       text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
@@ -319,6 +387,64 @@
         </div>
       </div>
     </div>
+
+    <!-- Reviews -->
+    <section class="reviews">
+      <h2>What Our Users Say</h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">A</div>
+            <div class="review-info">
+              <h3>Alex_Gaming</h3>
+              <div class="review-date">2 days ago</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+          </div>
+          <p class="review-content">Best executor I've ever used! The script hub is amazing and execution is lightning fast. No more dealing with annoying key systems.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">M</div>
+            <div class="review-info">
+              <h3>MaxScript</h3>
+              <div class="review-date">1 week ago</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+          </div>
+          <p class="review-content">Finally an executor that actually works! Clean UI, super stable, and the support team is really helpful. 10/10 would recommend!</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">S</div>
+            <div class="review-info">
+              <h3>Sarah.exe</h3>
+              <div class="review-date">3 days ago</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star"></svg>
+            <svg data-lucide="star-half"></svg>
+          </div>
+          <p class="review-content">Love how fast it injects! The built-in script hub saves so much time. Haven't had a single crash since I started using Nexus.</p>
+        </div>
+      </div>
+    </section>
 
     <!-- Features -->
     <section class="features" id="features">
