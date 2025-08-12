@@ -1,504 +1,563 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nexus – Next Generation Script Execution</title>
-
-  <!-- Poppins + Lucide UMD -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.264.0/dist/umd/lucide.min.js"></script>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus — Product Landing</title>
+  <meta name="description" content="A modern, glossy landing page template for a developer tool named Nexus." />
+  <!--
+    ⚠️ Ethical note:
+    - Do NOT fabricate reviews. Replace testimonial placeholders with real, verifiable quotes.
+    - Ensure any downloads, assets, or instructions comply with Roblox TOS and local laws.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /*======== Variables & Reset ========*/
-    :root {
-      --clr-primary: #2563eb;          /* Changed to blue */
-      --clr-bg-alt: rgba(0,0,0,0.2);
-      --clr-text: #f8fafc;
-      --clr-text-light: #cbd5e1;
-      --radius: 8px;
-      --spacing: 1rem;
-      --btn-small-padding: 0.4rem 1rem;
-      --btn-small-font: 0.9rem;
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,0.06);
+      --text: #e8ecf6;
+      --muted: #9aa3b2;
+      --brandA: #7c3aed; /* violet-600 */
+      --brandB: #06b6d4; /* cyan-500 */
+      --accent: #22d3ee; /* cyan-400 */
+      --ok: #22c55e;     /* green-500 */
+      --warn: #f59e0b;   /* amber-500 */
+      --danger: #ef4444; /* red-500 */
+      --winAccent: #0078d4; /* Windows 11 accent */
+      --radius: 18px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.35);
+      --shadow-glow: 0 10px 30px rgba(124,58,237,.35);
     }
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(1200px 800px at 20% -10%, rgba(124,58,237,.12), transparent 60%),
+                           radial-gradient(900px 600px at 85% -15%, rgba(34,211,238,.12), transparent 60%),
+                           linear-gradient(180deg, #0a0f1d 0%, #060914 100%);
+      background-color: var(--bg);
+      overflow-x: hidden;
     }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--clr-text);
-      background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #1e293b);
-      background-size: 400% 400%;
-      animation: gradientBG 20s ease infinite;
-      min-height: 100vh;
+    .container{ width:min(1200px, 92%); margin-inline:auto; }
+    header{
+      position: sticky; top:0; z-index: 50; backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(6,9,20,.7), rgba(6,9,20,.4)); border-bottom: 1px solid rgba(255,255,255,.06);
     }
-    @keyframes gradientBG {
-      0%   { background-position:   0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position:   0% 50%; }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .logo{ display:flex; gap:10px; align-items:center; text-decoration:none; color: var(--text); font-weight:700; letter-spacing:.3px; }
+    .logoOrb{ width:28px; height:28px; border-radius:10px; background: conic-gradient(from 180deg at 50% 50%, var(--brandA), var(--brandB)); box-shadow: var(--shadow-glow); }
+    /* Advanced SVG logo */
+    .logoMark{ width:36px; height:36px; filter: drop-shadow(0 10px 28px rgba(124,58,237,.35)); }
+/* Stop spin; we'll use a glassy sheen instead */
+.logo:hover .logoMark{ animation: none; }
+    .navlinks{ display:none; gap:22px; align-items:center; }
+    .navlinks a{ color: var(--muted); text-decoration:none; font-size:14px; }
+    .navlinks a:hover{ color: var(--text); }
+    .cta{ display:flex; gap:10px; }
+    .btn{ --padY:12px; --padX:18px; --ring: transparent; appearance:none; border:0; padding: var(--padY) var(--padX); border-radius: 14px; font-weight:600; cursor:pointer; transition: transform .15s ease, box-shadow .2s ease, background .2s ease; }
+    .btn-primary{ background: linear-gradient(90deg, var(--brandA), var(--brandB)); color:white; box-shadow: 0 8px 24px rgba(6,182,212,.25); }
+    .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 12px 28px rgba(6,182,212,.35); }
+    .btn-ghost{ background: rgba(255,255,255,.08); color:white; }
+    .btn-ghost:hover{ background: rgba(255,255,255,.12); }
+    /* No underlines on buttons */
+    .btn, .btn:hover, .btn:focus, .btn:active, a.btn, a.btn:hover, a.btn:focus{ text-decoration: none; outline: none; }
+    .btn-primary:visited, .btn-ghost:visited{ color:white; }
+    /* Disabled/coming-soon buttons */
+    .btn-disabled{ filter: saturate(.6) brightness(.85); background: rgba(255,255,255,.06) !important; color:#a8b0c0 !important; border:1px dashed rgba(255,255,255,.15); cursor:not-allowed; box-shadow:none !important; }
+    .btn-disabled:hover{ transform:none; background: rgba(255,255,255,.06) !important; }
+    /* Tooltips */
+    [data-tip]{ position:relative; }
+    [data-tip]::after{ content: attr(data-tip); position:absolute; left:50%; bottom: calc(100% + 10px); transform: translateX(-50%) translateY(4px); padding:8px 10px; font-size:12px; color:#e8ecf6; background: rgba(11,18,36,.95); border:1px solid rgba(255,255,255,.12); border-radius:10px; white-space:nowrap; opacity:0; pointer-events:none; transition: opacity .15s ease, transform .15s ease; box-shadow: var(--shadow-soft); }
+    [data-tip]::before{ content:""; position:absolute; left:50%; bottom: calc(100% + 6px); transform: translateX(-50%); width:8px; height:8px; background: rgba(11,18,36,.95); border-left:1px solid rgba(255,255,255,.12); border-top:1px solid rgba(255,255,255,.12); transform: translateX(-50%) rotate(45deg); opacity:0; transition: opacity .15s ease; }
+    [data-tip]:hover::after, [data-tip]:hover::before{ opacity:1; }
+
+    .hero{ position: relative; padding: 96px 0 48px; }
+    .orb{ position:absolute; filter: blur(60px); opacity:.35; border-radius:50%; mix-blend: screen; animation: float 18s ease-in-out infinite; }
+    .orb.a{ width:420px; height:420px; left:-120px; top:-80px; background: radial-gradient(circle at 30% 30%, #7c3aed, transparent 60%);
+             animation-delay:0s; }
+    .orb.b{ width:500px; height:500px; right:-180px; top:-120px; background: radial-gradient(circle at 70% 30%, #06b6d4, transparent 60%);
+             animation-delay:2s; }
+    .orb.c{ width:420px; height:420px; left:50%; transform: translateX(-50%); bottom:-180px; background: radial-gradient(circle at 50% 50%, #22d3ee, transparent 60%);
+             animation-delay:4s; }
+    @keyframes float { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-10px) } }
+
+    .headline{ font-weight:800; font-size: clamp(34px, 5.5vw, 64px); line-height:1.06; letter-spacing:-.02em; }
+    .headline .grad{ background: linear-gradient(90deg,var(--brandA), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .sub{ margin-top: 14px; color: var(--muted); font-size: clamp(16px, 2.5vw, 18px); }
+
+    .glass{ background: var(--panel); border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius);
+            box-shadow: var(--shadow-soft); }
+
+    .heroPanel{ margin-top: 26px; display:flex; gap:14px; padding: 12px; align-items:center; }
+    .chip{ font-size:12px; padding:8px 12px; border-radius:999px; background: rgba(124,58,237,.15); border:1px solid rgba(124,58,237,.35); }
+
+    .grid{ display:grid; gap:18px; }
+    .features{ margin-top: 54px; grid-template-columns: repeat(12, 1fr); }
+    .card{ padding:22px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.12); }
+    .card h3{ margin:0 0 8px; font-size:18px; }
+    .card p{ margin:0; color: var(--muted); font-size:14px; }
+    .icon{ width:32px; height:32px; margin-bottom: 10px; opacity:.95; }
+
+    .featGrid{ grid-column: 1 / -1; display:grid; grid-template-columns: repeat(1, 1fr); gap:18px; }
+
+    .screenshot{ grid-column: 1 / -1; padding: 18px; display:grid; place-items:center; }
+    .fakeWindow{ width:100%; aspect-ratio: 16/9; border-radius: 12px; background: #0f172a; border: 1px solid rgba(255,255,255,.08); position:relative; overflow:hidden; }
+    .titlebar{ height:38px; display:flex; align-items:center; gap:8px; padding:0 12px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border-bottom:1px solid rgba(255,255,255,.08); }
+    .dot{ width:10px; height:10px; border-radius:999px; }
+    .code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13px; color:#a5b4fc; padding:18px; }
+
+    .callout{ margin: 24px 0 0; padding: 14px 16px; border-radius: 14px; border:1px solid rgba(34,211,238,.3); background: rgba(6,182,212,.08); color:#c8fbff; font-size: 13px; }
+
+    .section{ padding: 80px 0; }
+
+    .testimonials{ display:grid; grid-template-columns: 1fr; gap: 18px; }
+    .quote{ position:relative; padding:22px; border-radius:16px; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.12); min-height: 150px; }
+    .quote p{ margin:0; color:#e2e8f0; font-size: 15px; }
+    .who{ margin-top:10px; color: var(--muted); font-size: 13px; }
+
+    .faq{ display:grid; grid-template-columns:1fr; gap: 12px; }
+    .faq details{ background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 14px 16px; }
+    .faq summary{ cursor:pointer; font-weight:600; }
+    .faq p{ color: var(--muted); }
+
+    footer{ padding: 60px 0; color: var(--muted); border-top:1px solid rgba(255,255,255,.06); }
+    /* Sleek footer links */
+    footer a{ color:#cdd6e5; text-decoration:none; position:relative; opacity:.9; transition: opacity .2s ease; }
+    footer a::after{ content:""; position:absolute; left:0; bottom:-4px; height:2px; width:0; background: linear-gradient(90deg, var(--brandA), var(--brandB)); border-radius:2px; transition: width .25s ease; }
+    footer a:hover{ opacity:1; }
+    footer a:hover::after{ width:100%; }
+
+    /* Utilities */
+    /* Changelog styles */
+    .changeList{ display:grid; grid-template-columns:1fr; gap:14px; }
+    .changeItem{ padding:18px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); }
+    .changeItem h3{ margin:0 0 6px; font-size:16px; }
+    .changeMeta{ font-size:12px; color: var(--muted); margin-bottom:8px; }
+    .row{ display:flex; gap:12px; align-items:center; flex-wrap: wrap; }
+    .col2{ display:grid; grid-template-columns: 1fr; gap:18px; }
+    .center{ text-align:center; }
+    .reveal{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible{ opacity:1; transform: none; }
+
+    /* Windows-style titlebar */
+    .winTitlebar{ height:38px; display:flex; align-items:center; justify-content:space-between; padding:0 8px 0 12px; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border-bottom:1px solid rgba(255,255,255,.08); border-top-left-radius: 12px; border-top-right-radius: 12px; }
+    .winTitle{ font-size:12px; color:#cfd8e3; letter-spacing:.2px; opacity:.8; }
+    .winControls{ display:flex; gap:2px; }
+    .winBtn{ background: transparent; color:#cfd8e3; border:0; width:46px; height:30px; border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:default; transition: background .15s ease, color .15s ease; font-weight:600; }
+    .winBtn:hover{ background: rgba(255,255,255,.06); }
+    .winBtn.close:hover{ background:#e81123; color:#fff; }
+    /* Consistent SVG caption icons */
+    .winBtn svg{ width:12px; height:12px; opacity:.9; }
+    .winBtn.close svg{ width:12px; height:12px; }
+    .winBtn .ic-stroke{ stroke:#cfd8e3; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; fill:none; }
+    .winBtn:hover .ic-stroke{ stroke:#ffffff; }
+
+    /* Windows caption area */
+    .winCaption{ display:flex; align-items:center; gap:8px; }
+    .winIcon{ width:12px; height:12px; border-radius:3px; background: linear-gradient(135deg, var(--winAccent), #43b0ff); box-shadow: 0 1px 0 rgba(255,255,255,.25) inset; opacity:.95; }
+    .winTitle{ font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Inter, Arial, sans-serif; }
+
+    /* Mica-like background for preview window */
+    .fakeWindow.mica{ background: radial-gradient(120% 100% at 100% 0%, rgba(255,255,255,.06), transparent 55%),
+                                 radial-gradient(120% 100% at 0% 0%, rgba(255,255,255,.04), transparent 55%),
+                                 #0b1224; position:relative; overflow:hidden; }
+    .fakeWindow.mica::after{ content:none; }
+
+    /* Windows-like scrollbars inside preview */
+    .fakeWindow pre::-webkit-scrollbar{ height:10px; width:10px; }
+    .fakeWindow pre::-webkit-scrollbar-track{ background: rgba(255,255,255,.04); border-radius:10px; }
+    .fakeWindow pre::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.18); border-radius:10px; }
+    .fakeWindow pre::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,.28); }
+
+    @media (min-width: 740px){
+      .navlinks{ display:flex; }
+      .featGrid{ grid-template-columns: repeat(3, 1fr); }
+      .testimonials{ grid-template-columns: repeat(3, 1fr); }
+      .faq{ grid-template-columns: repeat(2, 1fr); }
+      .col2{ grid-template-columns: 1.2fr .8fr; align-items:center; }
     }
 
-    /*======== Header / Nav ========*/
-    header {
-      position: sticky; top: 0;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(10px);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: var(--spacing); z-index: 100;
-    }
-    .logo {
-      font-size: 1.5rem; color: var(--clr-primary); font-weight: 600;
-    }
-    nav ul {
-      display: flex; gap: var(--spacing); list-style: none;
-    }
-    nav a {
-      position: relative; color: var(--clr-text);
-      text-decoration: none; font-weight: 500; text-transform: uppercase;
-      padding: 0.25rem;
-    }
-    nav a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0;
-      width: 0; height: 2px; background: var(--clr-primary);
-      transition: width 0.3s ease;
-    }
-    nav a:hover::after,
-    nav a.active::after { width: 100%; }
-    .hamburger {
-      display: none; font-size: 1.5rem; color: var(--clr-text);
-      cursor: pointer;
-    }
-
-    /*======== Hero ========*/
-    .hero {
-      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
-    }
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--clr-bg-alt); color: var(--clr-primary);
-      padding: 0.25rem 0.75rem; border-radius: var(--radius); font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-    .rating {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.25rem;
-      margin-bottom: var(--spacing);
-    }
-    .rating svg {
-      width: 20px;
-      height: 20px;
-      fill: #fbbf24;
-      stroke: none;
-    }
-    .rating span {
-      color: var(--clr-text-light);
-      font-size: 0.9rem;
-      margin-left: 0.5rem;
-    }
-    .hero h1 {
-      font-size: 2.75rem; line-height: 1.2;
-    }
-    .hero h1 span { color: var(--clr-primary); }
-    .hero p {
-      margin-top: 0.75rem; color: var(--clr-text-light);
-      max-width: 600px; margin: 0 auto;
-    }
-    .btn-group {
-      margin-top: var(--spacing);
-      display: inline-flex; gap: 1rem; flex-wrap: wrap;
-      justify-content: center;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.5rem; border-radius: var(--radius);
-      font-weight: 500; text-decoration: none;
-      font-size: 1rem;
-      transition: transform 0.2s ease, background 0.2s ease;
-      color: #fff;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-primary {
-      background: var(--clr-primary);
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px); background: #1d4ed8;
-    }
-    .btn-secondary {
-      background: var(--clr-bg-alt); color: var(--clr-text);
-    }
-    .btn-secondary:hover { transform: translateY(-2px); }
-
-    .btn.small {
-      padding: var(--btn-small-padding);
-      font-size: var(--btn-small-font);
-    }
-
-    /*======== Stats ========*/
-    .stats-container {
-      max-width: 600px; margin: 0 auto;
-      padding: calc(var(--spacing)*2) var(--spacing);
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: var(--spacing);
-      justify-items: center;
-    }
-    .stats .card {
-      background: var(--clr-bg-alt);
-      border-radius: var(--radius);
-      padding: var(--spacing);
-      text-align: center;
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s ease;
-      width: 180px;
-    }
-    .stats .card:hover { transform: translateY(-5px); }
-    .stats .card svg {
-      width: 32px; height: 32px; stroke: var(--clr-primary);
-    }
-    .stats .card h3 {
-      margin-top: 0.5rem; font-size: 1.5rem;
-    }
-    .stats .card p {
-      margin-top: 0.25rem; color: var(--clr-text-light);
-    }
-
-    /*======== Reviews ========*/
-    .reviews {
-      text-align: center;
-      padding: calc(var(--spacing)*4) var(--spacing);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .reviews h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: calc(var(--spacing)*2);
-      margin-top: calc(var(--spacing)*2);
-    }
-    .review-card {
-      background: var(--clr-bg-alt);
-      border-radius: var(--radius);
-      padding: calc(var(--spacing)*1.5);
-      text-align: left;
-      transition: transform 0.3s ease;
-    }
-    .review-card:hover {
-      transform: translateY(-5px);
-    }
-    .review-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .review-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--clr-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .review-info h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.25rem;
-    }
-    .review-info .review-date {
-      font-size: 0.9rem;
-      color: var(--clr-text-light);
-    }
-    .review-rating {
-      display: flex;
-      gap: 0.25rem;
-      margin-bottom: 0.5rem;
-    }
-    .review-rating svg {
-      width: 16px;
-      height: 16px;
-      fill: #fbbf24;
-      stroke: none;
-    }
-    .review-content {
-      color: var(--clr-text-light);
-      line-height: 1.6;
-    }
-
-    /*======== Features ========*/
-    .features {
-      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
-    }
-    .features h2 { font-size: 2rem; }
-    .features p { margin-top: 0.5rem; color: var(--clr-text-light); }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: calc(var(--spacing)*2);
-      margin-top: calc(var(--spacing)*2);
-    }
-    .feature-card {
-      background: var(--clr-bg-alt);
-      border-radius: var(--radius);
-      padding: var(--spacing);
-      transition: box-shadow 0.3s ease;
-    }
-    .feature-card:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .feature-card svg {
-      width: 32px; height: 32px;
-      background: rgba(255,255,255,0.1);
-      padding: 0.5rem; border-radius: 50%;
-      stroke: var(--clr-primary);
-    }
-    .feature-card h3 {
-      margin-top: 1rem; font-size: 1.25rem;
-    }
-    .feature-card p {
-      margin-top: 0.5rem; color: var(--clr-text-light);
-      font-size: 0.95rem; line-height: 1.4;
-    }
-
-    /*======== Download Card ========*/
-    #releases {
-      text-align: center; padding: calc(var(--spacing)*4) var(--spacing);
-    }
-    #releases h2 {
-      font-size: 1.75rem; margin-bottom: 1rem;
-    }
-    .download-card {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      background: var(--clr-bg-alt);
-      padding: var(--spacing);
-      border-radius: var(--radius);
-      backdrop-filter: blur(10px);
-    }
-    .download-card > svg {
-      width: 48px; height: 48px;
-      stroke: var(--clr-primary);
-    }
-    .download-card .btn-group {
-      margin-top: 0;
-    }
-
-    /*======== Showcase (YouTube Embed) ========*/
-    .showcase-video-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding-top: 56.25%;
-      height: 0;
-    }
-    .showcase-video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    /*======== Responsive ========*/
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-    }
-    @media (max-width: 600px) {
-      nav ul { display: none; }
-      .hamburger { display: block; }
-      header.nav-open nav ul {
-        display: flex; flex-direction: column;
-        position: absolute; top: 100%; right: var(--spacing);
-        background: rgba(15, 23, 42, 0.9);
-        padding: var(--spacing); border-radius: var(--radius);
-        gap: var(--spacing);
-      }
+    @media (min-width: 740px){
+      .navlinks{ display:flex; }
+      .featGrid{ grid-template-columns: repeat(3, 1fr); }
+      .testimonials{ grid-template-columns: repeat(3, 1fr); }
+      .faq{ grid-template-columns: repeat(2, 1fr); }
+      .col2{ grid-template-columns: 1.2fr .8fr; align-items:center; }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="logo">Nexus</div>
-    <nav>
-      <ul>
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#releases">Download</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#showcase">Showcase</a></li>
-      </ul>
-    </nav>
-    <div class="hamburger" onclick="document.querySelector('header').classList.toggle('nav-open')">
-      <svg data-lucide="menu"></svg>
+    <div class="container nav">
+      <a href="#home" class="logo">
+        <svg class="logoMark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gradN" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".9"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- subtle glow backdrop for glassy feel -->
+  <circle cx="32" cy="32" r="28" fill="url(#glow)" opacity=".22"/>
+  <!-- Gradient "N" -->
+  <g stroke="url(#gradN)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 46 V18"/>
+    <path d="M18 18 L46 46"/>
+    <path d="M46 46 V18"/>
+  </g>
+  <!-- glassy highlight overlay -->
+  <g stroke="url(#shine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".7">
+    <path d="M18 46 V28"/>
+    <path d="M20 20 L44 42"/>
+    <path d="M46 46 V30"/>
+  </g>
+</svg>
+        <span>Nexus</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#changelog">Changelog</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="cta">
+        <button class="btn btn-ghost" onclick="scrollToId('faq')">Docs</button>
+        <a class="btn btn-primary" href="#" onclick="openModal(event)" rel="nofollow">Download</a>
+      </div>
     </div>
   </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero" id="home">
-      <span class="badge"><svg data-lucide="zap"></svg> Most Advanced Executor</span>
-      <div class="rating">
-        <svg data-lucide="star"></svg>
-        <svg data-lucide="star"></svg>
-        <svg data-lucide="star"></svg>
-        <svg data-lucide="star"></svg>
-        <svg data-lucide="star-half"></svg>
-        <span>4.8</span>
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+    <div class="orb c"></div>
+    <div class="container">
+      <div class="glass heroPanel reveal">
+        <span class="chip">New releases every week.</span>
       </div>
-      <h1>Next Generation <span>Script Execution</span></h1>
-      <p>Experience unmatched power and precision with Nexus's cutting-edge Roblox executor. Instant execution, unlimited possibilities.</p>
-      <div class="btn-group">
-        <a href="#releases" class="btn btn-primary small">
-          <svg data-lucide="download-cloud"></svg> Download
-        </a>
-        <a href="https://discord.gg/f5YSnNacsa" target="_blank" class="btn btn-secondary small">
-          <svg data-lucide="message-circle"></svg> Discord
-        </a>
+      <h1 class="headline reveal" style="margin-top: 16px;">
+        Power up your exploiting with <span class="grad">Nexus</span>
+      </h1>
+      <p class="sub reveal">A sleek, fast, and extensible exploit for cheaters online.</p>
+      <div class="row reveal" style="margin-top:20px;">
+        <a class="btn btn-primary" href="#" onclick="openModal(event)" rel="nofollow">Get Nexus</a>
+        <button class="btn btn-ghost" onclick="scrollToId('features')">Explore features</button>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Stats -->
-    <div class="stats-container">
-      <div class="stats">
-        <div class="card">
-          <svg data-lucide="zap"></svg>
-          <h3>1–2 ms</h3>
-          <p>Injection Speed</p>
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="col2">
+        <div>
+          <h2 class="headline" style="font-size: clamp(26px,4vw,40px);">Thoughtful features. <span class="grad">Gorgeous by default.</span></h2>
+          <p class="sub">Built for speed and quality, streamlined UI and smart AI. Works great the moment you install, customizable when you need it.</p>
         </div>
-        <div class="card">
-          <svg data-lucide="users"></svg>
-          <h3>50+</h3>
-          <p>Active Users</p>
+        <div class="glass card reveal">
+          <div class="winTitlebar">
+            <div class="winCaption"><span class="winIcon" aria-hidden="true"></span><span class="winTitle">Nexus Console</span></div>
+            <div class="winControls" aria-label="Window controls">
+              <button class="winBtn" aria-label="Minimize" title="Minimize">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-stroke" d="M2 6.5 H10"/></svg>
+              </button>
+              <button class="winBtn" aria-label="Maximize" title="Maximize">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect class="ic-stroke" x="2.5" y="2.5" width="7" height="7" rx="1"/></svg>
+              </button>
+              <button class="winBtn close" aria-label="Close" title="Close">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-stroke" d="M3 3 L9 9 M9 3 L3 9"/></svg>
+              </button>
+            </div>
+          </div>
+          <pre class="code"><code>local Player = game.Players.LocalPlayer
+
+Player.Character.Humanoid.WalkSpeed = 50
+Player.Character.Humanoid.JumpPower = 100</code></pre>
+        </div>
+      </div>
+
+      <div class="grid features">
+        <div class="featGrid">
+          <article class="card reveal">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg>
+            <h3>Fast Injection</h3>
+            <p>Faster than ever, using the best APIs available.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9-9 9-9-9z"/></svg>
+            <h3>Clean UI</h3>
+            <p>Modern design, created by our developers, just for you.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <h3>Extra Features</h3>
+            <p>Nexus provides many other settings to customize your experience</p>
+          </article>
+          <article class="card reveal">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"/></svg>
+            <h3>Blazing Performance</h3>
+            <p>Fast launches and responsive UI, even on modest hardware.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/></svg>
+            <h3>Artificial Intellegence</h3>
+            <p>Built in AI, straight at you fingertips.</p>
+          </article>
+          <article class="card reveal">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L6.5 20l2-7L3 9h7z"/></svg>
+            <h3>Script Hub</h3>
+            <p>Nexus gives you a script hub filled with amazing scripts.</p>
+          </article>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Reviews -->
-    <section class="reviews">
-      <h2>What Our Users Say</h2>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-header">
-            <div class="review-avatar">P</div>
-            <div class="review-info">
-              <h3>print("ash")</h3>
-              <div class="review-date">2 days ago</div>
+  <!-- Showcase -->
+  <section id="showcase" class="section">
+    <div class="container">
+      <div class="screenshot reveal">
+        <div class="fakeWindow mica">
+          <div class="winTitlebar">
+            <div class="winCaption"><span class="winIcon" aria-hidden="true"></span><span class="winTitle">Nexus — Preview</span></div>
+            <div class="winControls" aria-label="Window controls">
+              <button class="winBtn" aria-label="Minimize" title="Minimize">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-stroke" d="M2 6.5 H10"/></svg>
+              </button>
+              <button class="winBtn" aria-label="Maximize" title="Maximize">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><rect class="ic-stroke" x="2.5" y="2.5" width="7" height="7" rx="1"/></svg>
+              </button>
+              <button class="winBtn close" aria-label="Close" title="Close">
+                <svg viewBox="0 0 12 12" aria-hidden="true"><path class="ic-stroke" d="M3 3 L9 9 M9 3 L3 9"/></svg>
+              </button>
             </div>
           </div>
-          <div class="review-rating">
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-          </div>
-          <p class="review-content">The script hub is ok and the AI is helpful ngl maybe add themes</p>
-        </div>
-        <div class="review-card">
-          <div class="review-header">
-            <div class="review-avatar">!</div>
-            <div class="review-info">
-              <h3>! dudes</h3>
-              <div class="review-date">1 week ago</div>
-            </div>
-          </div>
-          <div class="review-rating">
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-          </div>
-          <p class="review-content">unc isnt skidded good ui good ai add more script hub functionality</p>
-        </div>
-        <div class="review-card">
-          <div class="review-header">
-            <div class="review-avatar">I</div>
-            <div class="review-info">
-              <h3>idk</h3>
-              <div class="review-date">3 days ago</div>
-            </div>
-          </div>
-          <div class="review-rating">
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star"></svg>
-            <svg data-lucide="star-half"></svg>
-          </div>
-          <p class="review-content">Injection isnt the fastest but executes quick and maybe update the ui a little, good script hub and ai and good settings</p>
-        </div>
-      </div>
-    </section>
+          <div class="code"><code>
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
 
-    <!-- Features -->
-    <section class="features" id="features">
-      <h2>Features</h2>
-      <p>Discover what makes Nexus special</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <svg data-lucide="shield"></svg>
-          <h3>Secure</h3>
-          <p>We make sure your time using our exploit is secure and undetected.</p>
-        </div>
-        <div class="feature-card">
-          <svg data-lucide="target"></svg>
-          <h3>Unrestricted Execution</h3>
-          <p>Featuring 99% UNC for free, Nexus is able to run any script on the market!</p>
-        </div>
-        <div class="feature-card">
-          <svg data-lucide="grid"></svg>
-          <h3>Script Hub</h3>
-          <p>Integrated Script Hub right within the UI so you never need to go searching online for scripts again!</p>
-        </div>
-      </div>
-    </section>
+local speedTable = {16, 24, 32, 40, 48} -- Example speed values
+local lastSpeedChange = 0
+local changeInterval = 15 -- Seconds
 
-    <!-- Download -->
-    <section id="releases">
-      <h2>Download the latest version of Nexus</h2>
-      <div class="download-card">
-        <svg data-lucide="download-cloud"></svg>
-        <a href="https://github.com/CoderDude1232/Nexus/releases/latest/download/nexus.zip" 
-           class="btn btn-primary small" 
-           target="_blank">
-          <svg data-lucide="download-cloud"></svg> Download Latest Version
-        </a>
-      </div>
-    </section>
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        local currentSpeed = humanoid.WalkSpeed
 
-    <!-- Showcase (YouTube Embed) -->
-    <section class="features" id="showcase">
-      <h2>Showcase</h2>
-      <p>Watch Nexus in action:</p>
-      <div class="showcase-video-wrapper">
-        <iframe
-          src="https://www.youtube.com/embed/D9lQTHtQRNg"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+        RunService.Heartbeat:Connect(function(deltaTime)
+            lastSpeedChange = lastSpeedChange + deltaTime
+            if lastSpeedChange >= changeInterval then
+                local randomIndex = math.random(1, #speedTable)
+                local newSpeed = speedTable[randomIndex]
+                humanoid.WalkSpeed = newSpeed
+                lastSpeedChange = 0
+            end
+        end)
+    end)
+end)</code></div>
+        </div>
       </div>
-    </section>
-  </main>
+      <div class="row center reveal" style="margin-top: 18px; justify-content:center;">
+        <a class="btn btn-primary" href="#" onclick="openModal(event)">Download for Desktop</a>
+        <a class="btn btn-ghost" href="#" onclick="alert('Link your GitHub repo/releases here.')">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials (replace with real ones) -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <h2 class="headline center" style="font-size: clamp(26px,4vw,40px);">Loved by builders</h2>
+      <div class="testimonials" id="quotes">
+        <!-- JS injects rotating quotes here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <h2 class="headline" style="font-size: clamp(26px,4vw,40px);">FAQ</h2>
+      <div class="faq">
+        <details class="reveal" open>
+          <summary>Is Nexus free?</summary>
+          <p>Yes. You can offer optional donations or premium themes if you like. Be sure to follow all platform rules wherever you distribute it.</p>
+        </details>
+        <details class="reveal">
+          <summary>Does Nexus collect data?</summary>
+          <p>Nexus is designed with privacy in mind and does not send telemetry by default. Any optional diagnostics should be opt-in.</p>
+        </details>
+        <details class="reveal">
+          <summary>Is this allowed on game platforms?</summary>
+          <p>Always read and follow the Terms of Service of any platform. Keep usage compliant and respectful of community guidelines.</p>
+        </details>
+        <details class="reveal">
+          <summary>Where do I report bugs or request features?</summary>
+          <p>Link your public issue tracker or feedback form here so users can contribute.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Changelog -->
+  <section id="changelog" class="section">
+    <div class="container">
+      <h2 class="headline" style="font-size: clamp(26px,4vw,40px);">Changelog</h2>
+      <p class="sub">Highlights and fixes across releases. Replace with your real notes.</p>
+      <div class="changeList">
+        <article class="changeItem reveal">
+          <h3>v1.6 — UI refresh & performance</h3>
+          <div class="changeMeta">Released: 2025-08-05</div>
+          <ul>
+            <li>New glass panels and refined typography.</li>
+            <li>Startup time improved by ~25% on low-end hardware.</li>
+            <li>Download modal and keyboard shortcuts polish.</li>
+          </ul>
+        </article>
+        <article class="changeItem reveal">
+          <h3>v1.5 — Theming & privacy</h3>
+          <div class="changeMeta">Released: 2025-07-12</div>
+          <ul>
+            <li>Auto dark/light mode and custom themes.</li>
+            <li>Telemetry disabled by default; opt-in diagnostics.</li>
+            <li>New plugin hooks for quick extensions.</li>
+          </ul>
+        </article>
+        <article class="changeItem reveal">
+          <h3>v1.4 — Quality of life</h3>
+          <div class="changeMeta">Released: 2025-06-01</div>
+          <ul>
+            <li>Navigation improvements and smoother animations.</li>
+            <li>Bug fixes and accessibility tweaks.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container row" style="justify-content: space-between; align-items:flex-start;">
+      <div>
+        <div class="row" style="align-items:center; gap:10px;">
+          <svg class="logoMark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gradN" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".9"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity=".25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- subtle glow backdrop for glassy feel -->
+  <circle cx="32" cy="32" r="28" fill="url(#glow)" opacity=".22"/>
+  <!-- Gradient "N" -->
+  <g stroke="url(#gradN)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 46 V18"/>
+    <path d="M18 18 L46 46"/>
+    <path d="M46 46 V18"/>
+  </g>
+  <!-- glassy highlight overlay -->
+  <g stroke="url(#shine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".7">
+    <path d="M18 46 V28"/>
+    <path d="M20 20 L44 42"/>
+    <path d="M46 46 V30"/>
+  </g>
+</svg>
+          <strong>Nexus</strong>
+        </div>
+        <p style="max-width:560px; margin-top: 8px;">© <span id="year"></span> Nexus. Built with ❤️ for creators. Replace links and content with your own.
+        </p>
+      </div>
+      <div class="row" style="gap: 18px;">
+        <a href="#features">Features</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#faq">FAQ</a>
+        <a href="#" onclick="alert('Hook this to your GitHub or docs site.')">Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Simple Download Modal -->
+  <dialog id="dlModal" style="border: none; border-radius: 16px; padding:0; max-width: 520px; width: calc(100% - 32px); background: #0b1224; color: var(--text);">
+    <div class="card" style="border-radius: 16px;">
+      <div class="row" style="justify-content: space-between; align-items:center;">
+        <h3 style="margin:0">Get Nexus</h3>
+        <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+      </div>
+      <p class="sub" style="margin-top:6px;">Choose your platform. Replace these links with your official release files.</p>
+      <div class="row" style="margin-top:12px;">
+        <a class="btn btn-primary" href="#" rel="nofollow" onclick="alert('Point this to your Windows .zip/.exe release.')">Windows</a>
+        <a class="btn btn-ghost btn-disabled" href="#" rel="nofollow" data-disabled="true" data-tip="Coming soon" aria-disabled="true" tabindex="-1" title="Coming soon">macOS</a>
+        <a class="btn btn-ghost btn-disabled" href="#" rel="nofollow" data-disabled="true" data-tip="Coming soon" aria-disabled="true" tabindex="-1" title="Coming soon">Linux</a>
+      </div>
+      <div class="callout" style="margin-top:14px;">Reminder: only distribute software that complies with platform policies and applicable laws.</div>
+    </div>
+  </dialog>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
+    // Smooth scroll
+    function scrollToId(id){ document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+    // Modal logic
+    const modal = document.getElementById('dlModal');
+    function openModal(e){ e && e.preventDefault(); modal.showModal(); }
+    function closeModal(){ modal.close(); }
+    window.openModal = openModal; window.closeModal = closeModal; window.scrollToId = scrollToId;
+
+    // IntersectionObserver reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target);} });
+    },{ threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    // Rotating testimonials (placeholders — replace with real)
+    const sampleQuotes = [
+      { text: "this executor is really good over all the one rn", who: "Anonymous" },
+      { text: "found a good api that doesnt ban u anymore", who: "Anonymous" },
+      { text: "good", who: "Anonymous" },
+      { text: ":skull:", who: "Anonymous" }
+    ];
+    const qWrap = document.getElementById('quotes');
+    function renderQuotes(){
+      qWrap.innerHTML = '';
+      sampleQuotes.forEach(q=>{
+        const div = document.createElement('article');
+        div.className = 'quote reveal';
+        div.innerHTML = `<p>“${q.text}”</p><div class="who">${q.who}</div>`;
+        qWrap.appendChild(div);
+      });
+      document.querySelectorAll('#quotes .reveal').forEach(el=> io.observe(el));
+    }
+    renderQuotes();
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Prevent clicks on coming-soon buttons
+    document.querySelectorAll('a[data-disabled="true"]').forEach(el=>{
+      el.addEventListener('click', (e)=> e.preventDefault());
     });
   </script>
 </body>
