@@ -29,7 +29,7 @@ Nexus is a Velocity-based Roblox executor with 94% sUNC, built for reliability a
 
 ## Installation
 
-1. Download `NexusBootstrapper.exe` from [here](https://github.com/CoderDude1232/Nexus/0.0.0/download/NexusBootstrapper.exe)
+1. Download `NexusBootstrapper.exe` from [here](https://github.com/CoderDude1232/Nexus/releases/download/0.0.0/NexusBootstrapper.exe)
 2. Run it — Nexus installs automatically to `%LocalAppData%\Nexus`
 3. A desktop shortcut is created automatically
 4. Get a key at [jnkie.com/get-key/nexus](https://jnkie.com/get-key/nexus)
