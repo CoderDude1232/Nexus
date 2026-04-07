@@ -1,51 +1,49 @@
 Nexus Executor Proprietary License
 
-Grant of License:
+Grant of License
 
-This license grants you (the user) a non-exclusive, non-transferable, and revocable right to use Nexus Executor (the software) under the following conditions:
+This license grants you (the user) a non-exclusive, non-transferable, and revocable
+right to use Nexus Executor (the "software") for personal use only, subject to the
+conditions below.
 
-The software is provided for personal use only.
+Restrictions
 
-You may not sell, rent, lease, or distribute this software without explicit permission from the owner.
+By using Nexus Executor you agree to the following:
 
-You may not modify, reverse-engineer, decompile, or disassemble any part of the software.
+  - No Redistribution. You may not share, distribute, sell, rent, lease, or resell
+    copies of this software without explicit written permission from the owner.
 
-Restrictions:
+  - No Reverse Engineering. Decompiling, modifying, disassembling, or analyzing the
+    internal structure of the software is strictly prohibited.
 
-By using Nexus Executor, you agree to the following restrictions:
+  - No Commercial Use. This software may not be used for commercial purposes without
+    prior written permission from the owner.
 
-No Redistribution – You may not share, distribute, or resell copies of this software.
+  - No Unauthorized Modifications. Altering the software to remove protections,
+    bypass security mechanisms, or enable unauthorized features is strictly forbidden.
 
-No Reverse Engineering – Decompiling, modifying, or analyzing the internal structure of Nexus is strictly prohibited.
+Intellectual Property
 
-No Commercial Use – This software is not for commercial purposes without prior written permission.
+The software, including but not limited to its design, source code, and branding,
+is the intellectual property of the developers. No rights are granted except those
+explicitly stated in this license.
 
-No Unauthorized Modifications – Altering the software to remove protections, bypass security mechanisms, or enable unauthorized features is strictly forbidden.
+Disclaimer of Warranty
 
-Intellectual Property:
+THIS SOFTWARE IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND. THE DEVELOPERS MAKE
+NO GUARANTEES THAT THE SOFTWARE WILL BE ERROR-FREE OR OPERATE WITHOUT INTERRUPTION,
+AND ARE NOT RESPONSIBLE FOR ANY DAMAGE — HARDWARE, SOFTWARE, OR FINANCIAL — RESULTING
+FROM USE OF THIS SOFTWARE.
 
-The software, including but not limited to its design, source code, and branding, is the intellectual property of the developers.
+Termination
 
-No rights are granted except those explicitly provided in this license.
+Violation of any term in this agreement may result in immediate termination of your
+license. The developers reserve the right to revoke access at any time and to pursue
+legal action if necessary.
 
-Disclaimer of Warranty:
+Agreement
 
-THIS SOFTWARE IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND. The developers:
+By using Nexus Executor you acknowledge and agree to the terms outlined above.
+If you do not agree, do not use the software.
 
-Make no guarantees that the software will be error-free or operate without interruption.
-
-Are not responsible for any damage (hardware, software, or financial losses) resulting from use of this software.
-
-Termination of License:
-
-Violation of any terms in this agreement may result in immediate termination of your license. The developers reserve the right to:
-
-Revoke your access to Nexus Executor at any time.
-
-Take legal action if necessary.
-
-Agreement:
-
-By using Nexus Executor, you acknowledge and agree to the terms outlined in this license. If you do not agree, do not use the software.
-
-For questions or permissions, contact at: https://github.com/CoderDude1232/Nexus/issues
+For questions or permissions: https://github.com/CoderDude1232/Nexus/issues
