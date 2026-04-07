@@ -1,114 +1,61 @@
-# 🚀 Nexus Executor
+# Nexus Executor
 
-[![Status: Online](https://img.shields.io/badge/Status-🟢%20Online-4CAF50?style=for-the-badge)]()
-[![Latest Version](https://img.shields.io/badge/Version-1.3.2-2196F3?style=for-the-badge)]()
-[![Updates](https://img.shields.io/badge/Updates-Up%20To%20Date-00BCD4?style=for-the-badge)]()
-[![Issues](https://img.shields.io/badge/Issues-⚠️%20None%20Reported-FFEB3B?style=for-the-badge)]()
-
-
----
-
-## 🎯 What is **Nexus**?
-
-### 💎 **Nexus** is the **best free executor** available right now!
-
-✅ **No Key System** – Instant access with no wait.\
-🆓 **Completely Free** – Powered by community donations.\
-💖 **We appreciate any support** to keep Nexus running!
-
-🚀 **Using the best API, Nexus provides instant script execution** without any delays.
+[![Version](https://img.shields.io/github/v/release/CoderDude1232/Nexus?style=for-the-badge&color=10acda&label=Version)](https://github.com/CoderDude1232/Nexus/releases/latest)
+[![Status](https://img.shields.io/badge/Status-Online-4CAF50?style=for-the-badge)]()
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2B-blue?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/License-Free-10acda?style=for-the-badge)](https://jnkie.com/get-key/nexus)
 
 ---
 
-## 💻 Design
+## What is Nexus?
 
-⌨️ **Nexus** provides the best UI that **sticks out** against all.
-
----
-
-## 🚀 Features
-
-✔️ **Instant Execution**\
-✔️ **Regular Updates**\
-✔️ **New & Clean UI**\
-✔️ **No Ads, No Linkvertise**\
-✔️ **80% UNC**
-
-Nexus offers **one of the best execution environments**, ensuring smooth script performance without interruptions.
+Nexus is a Velocity-based Roblox executor with 94% sUNC, built for reliability and a clean experience. It includes a Monaco script editor, instance manager, built-in AI assistant, and an auto-updating bootstrapper.
 
 ---
 
-## 💾 Installation
+## Features
 
-1️⃣ **Download Nexus** from [Official Releases](https://github.com/CoderDude1232/Nexus/releases).\
-2️⃣ **Extract Files** to your preferred folder.\
-3️⃣ Run **`Nexus.exe`** and wait for launch!
-
----
-
-## ⛔ Common Errors & Fixes
-
-Here are some **known issues** and their **solutions**:
-
-### 1️⃣ **Roblox Crash on Injection**
-
-📌 ***Issue:*** Roblox may **crash after injecting Nexus**.\
-✅ **Fix:** Try **restarting** your **PC** and then open both Nexus & Roblox.
-
-### 2️⃣ **Missing Scripts Folder**
-
-📌 *Issue:* Error upon launch:
-
-```
-Could not find a part of the path 'C:\path\to\executer-folder\scripts'.
-```
-
-✅ **Fix:** Create a folder named **`scripts`** inside the **Nexus** directory.
-
-### 3️⃣ **Missing Editor File**
-
-📌 *Issue:* Error upon launch
-
-```
-Error loading editor: Unable to load DLL 'WebView2Loader.dll': The specified module could not be found.
-```
-
-✅ **Fix:** **Redownload Nexus** from **GitHub** and ensure that you find both folders named **`Nexus.exe.WebView2`** and **`runtimes`**.
+- Monaco editor with Lua syntax highlighting and autocomplete
+- Instance manager — inject into multiple Roblox instances simultaneously
+- Nexus AI — built-in Luau scripting assistant
+- Discord Rich Presence showing current game
+- Auto-inject when Roblox opens
+- Script explorer with local script management
+- Encrypted config with customisable keybinds
+- Auto updater via bootstrapper — no manual downloads needed
+- Key system
 
 ---
 
-## 💖 Support Nexus
+## Installation
 
-Nexus is **free & run on donations**. If you’d like to support development:\
-☕ **[Buy us a Coffee](https://github.com/CoderDude1232/Nexus/blob/main/DONATIONS.md)**\
-🎁 **[Donate via PayPal](https://github.com/CoderDude1232/Nexus/blob/main/DONATIONS.md)**
+1. Download `NexusBootstrapper.exe` from [here](https://github.com/CoderDude1232/Nexus/0.0.0/download/NexusBootstrapper.exe)
+2. Run it — Nexus installs automatically to `%LocalAppData%\Nexus`
+3. A desktop shortcut is created automatically
+4. Get a key at [jnkie.com/get-key/nexus](https://jnkie.com/get-key/nexus)
 
-Every contribution helps us **keep Nexus running smoothly!** 🚀
-
----
-
-## 🌍 Connect with Us
-
-💬 **Executor/Github Issues**: [Report Bugs](https://github.com/CoderDude1232/Nexus/issues)
+The bootstrapper handles all future updates silently on each launch.
 
 ---
 
-## ⚖️ **License & Terms of Use**
+## Common Issues
 
-### 📜 **Proprietary License**
+**Roblox crashes on injection**
+Restart your PC, open Roblox first, then inject without using the instance manager.
 
-**Nexus is protected under a Proprietary License.**\
-You are **not** allowed to:
-
-- 🚫 **Modify, reverse-engineer, or distribute** this software.
-- 🚫 **Use Nexus for commercial purposes** without explicit permission.
-- 🚫 **Bypass security features** or attempt unauthorized access.
-
-By using this software, you **agree** to these terms. Any violations may result in legal action.
-
-📌 **See the ********************[LICENSE](LICENSE)******************** file for full terms.**
+**WebView2 not found**
+Download it manually from [Microsoft](https://developer.microsoft.com/microsoft-edge/webview2).
 
 ---
 
-🎉 **Enjoy Nexus?** Don’t forget to **⭐ Star this repo** and **share it with friends!** 🚀
+## Connect
 
+- Discord — [discord.gg/4wtErtCRan](https://discord.gg/4wtErtCRan)
+- Issues — [GitHub Issues](https://github.com/CoderDude1232/Nexus/issues)
+- Key — [jnkie.com/get-key/nexus](https://jnkie.com/get-key/nexus)
+
+---
+
+## License
+
+Nexus is distributed under a proprietary license. You may not modify, reverse-engineer, redistribute, or use this software for commercial purposes without explicit permission. See [LICENSE](LICENSE) for full terms.
